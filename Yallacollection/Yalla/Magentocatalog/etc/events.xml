@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magenest. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    
+    <event name="controller_action_predispatch_checkout_cart_add">
+        <observer name="remove_gift_card" instance="Yalla\Magentocatalog\Observer\AddToCart" />
+    </event>
+    
+    <event name="payment_method_is_active">
+        <observer name="cod_availability" instance="Yalla\Magentocatalog\Observer\CodAvailable" />
+    </event>
+
+</config>

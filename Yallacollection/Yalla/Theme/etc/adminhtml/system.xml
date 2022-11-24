@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="appsettings" translate="label" sortOrder="10">
+            <label>App Settings</label>
+        </tab>
+        <section id="imageupload" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class> 
+            <label>Category Square Image</label>
+            <tab>appsettings</tab> 
+            <resource>Yalla_Theme::app_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Category Square Image</label> 
+                <field id="squareimage" translate="label comment" type="image" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+		            <label>Common Square Image</label>
+		            <backend_model>Yalla\Theme\Model\Config\Backend\Image</backend_model>
+					<base_url type="media" scope_info="1">squareimage</base_url>
+				</field>
+            </group>
+	     <group id="general2" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>App Drawer Image</label> 
+                <field id="drawerimage" translate="label comment" type="image" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+		            <label>App Drawer Image</label>
+		            <backend_model>Yalla\Theme\Model\Config\Backend\Image</backend_model>
+					<base_url type="media" scope_info="1">squareimage</base_url>
+				</field>
+            </group>
+        </section>
+        <section id="offercategory" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class> 
+            <label>Cateogry</label>
+            <tab>appsettings</tab> 
+            <resource>Yalla_Theme::app_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Offer Category ID</label> 
+                <field id="category_id" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+		            <label>Offer Category</label>
+				</field>
+            </group>
+        </section>
+
+      <section id="Homepage" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class> 
+            <label>Settings</label>
+            <tab>appsettings</tab> 
+            <resource>Yalla_Theme::app_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Set Block Setting</label> 
+                <field id="block_sorting" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+		            <label>Shop-By-Age</label>
+				</field>
+
+               <field id="Offerbanners" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+		            <label>OfferBanners</label>
+				</field>
+               <field id="LatestList" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+		            <label>LatestList</label>
+				</field>
+              <field id="TrendingList" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+		            <label>TrendingList</label>
+				</field>
+              <field id="Bannerimages" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+		            <label>Banner-Images</label>
+				</field>
+              <field id="Featuredlist" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+		            <label>FeaturedList</label>
+				</field>
+              <field id="Fullbanner" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+		            <label>Full-Banner</label>
+				</field>
+              <field id="Bodybannerapp" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+		            <label>Banner-App</label>
+				</field>
+              <field id="Brandslider" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+		            <label>BrandSlider</label>
+				</field>
+              <field id="Client" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+		            <label>Client</label>
+				</field>
+            </group>
+            <group id="giftwrap" translate="label" type="text" sortOrder="350" showInDefault="1" showInWebsite="0" showInStore="0">
+				<label>Gift Wrap</label>
+				<field id="enable" translate="label" type="select" showInDefault="1" showInWebsite="0" showInStore="0">
+					<label>Enable</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+			</group>
+			
+			<group id="sendsms" translate="label" type="text" sortOrder="350" showInDefault="1" showInWebsite="0" showInStore="0">
+				<label>Sms Gateway</label>
+				<field id="enable" translate="label" type="select" showInDefault="1" showInWebsite="0" showInStore="0">
+					<label>Enable</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+            <field id="senderid" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+		            <label>SenderId</label>
+				</field>
+            <field id="sid" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+		            <label>SID</label>
+				</field>
+            <field id="apikey" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+		            <label>Api-Key</label>
+				</field>
+			</group>
+        </section>
+
+    </system>
+</config>

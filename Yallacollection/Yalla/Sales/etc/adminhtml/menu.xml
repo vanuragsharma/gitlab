@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+      <add id="Yalla_Sales::sales" title="Saleable Stock" translate="Saleable Stock" module="Yalla_Sales" parent="Magento_Backend::content" sortOrder="50" dependsOnModule="Yalla_Sales" resource="Yalla_Sales::sales"/>
+      <add id="Yalla_Sales::index_index" title="Reset" translate="title" module="Yalla_Sales" parent="Yalla_Sales::sales" sortOrder="10" dependsOnModule="Yalla_Sales" action="yallasales/index" resource="Yalla_Sales::sales"/>
+    </menu>
+</config>
+  

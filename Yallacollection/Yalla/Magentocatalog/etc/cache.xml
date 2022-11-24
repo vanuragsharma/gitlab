@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Cache/etc/cache.xsd">
+    <type name="ajaxcatalog" translate="label,description" instance="Yalla\Magentocatalog\Model\Cache\Type">
+        <label>AjaxCategoryCatalog</label>
+        <description>Cached category pages of ajax infinte scroll</description>
+    </type>
+</config>

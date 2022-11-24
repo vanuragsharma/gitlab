@@ -1,0 +1,36 @@
+"Send Order Item","Send Order Item"
+"Order Item ID","Order Item ID"
+"Product ID","Product ID"
+SKU,SKU
+Name,Name
+"Order Number","Order Number"
+Vendor,Vendor
+"Email Sent","Email Sent"
+"Email to Vendor","Email to Vendor"
+"Manage Vendors","Manage Vendors"
+"Add New Vendors","Add New Vendors"
+Save,Save
+"Save and Continue Edit","Save and Continue Edit"
+Delete,Delete
+"Edit Banner '%1'","Edit Banner '%1'"
+"Add Banner","Add Banner"
+General,General
+"Vendor Name","Vendor Name"
+"Vendor Email","Vendor Email"
+"Vendor Number","Vendor Number"
+"Vendor Address","Vendor Address"
+Status,Status
+"Vendor Info","Vendor Info"
+"Vendor Products","Vendor Products"
+Sku,Sku
+"Account Information","Account Information"
+Products,Products
+"This banner no longer exists.","This banner no longer exists."
+"The banner has been deleted.","The banner has been deleted."
+"The vendor has been saved.","The vendor has been saved."
+Enabled,Enabled
+Disabled,Disabled
+Vendors,Vendors
+List,List
+"Send Order Items","Send Order Items"
+ID,ID

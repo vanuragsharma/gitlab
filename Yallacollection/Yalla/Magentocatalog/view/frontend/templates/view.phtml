@@ -1,0 +1,53 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$mediaUrl = $objectManager->get('\Magento\Store\Model\StoreManagerInterface')->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+?>
+
+<?php if ($currentCategory = $block->getCurrentCategory()): ?>
+    
+    <?php
+           // echo $currentCategory->getName();
+
+            echo '<a href="'.$currentCategory->getUrl().'">    <img src="'.$mediaUrl.'catalog/category/'.$currentCategory->getBrandLogo().'">   </a>';
+
+            //echo $currentCategory->getBrandLogo();                                    
+     ?>
+
+<?php endif; ?>
+
+
+
+    <?php if($Childcategories = $block->getChildrenCategory($currentCategory->getId())): ?>
+    <?php foreach($Childcategories as $Childcategory){ 
+        
+        //echo '<a href="'.$Childcategory->getUrl().'">    <img src="'.$Childcategory->getImageUrl().'">   </a>';
+
+        echo '<a class="childcategory_link" href="'.$Childcategory->getUrl().'">  <h2 class="childcategory_html"> '.$Childcategory->getName().' </h2>
+            </a>';
+
+		if($Childcategory->hasChildren()) {
+		        $childSubcategories = $block->getChildrenCategory($Childcategory->getId());
+
+		        echo '
+	               <div class="row">';
+		        foreach($childSubcategories as $childSubcategory) { 
+		      
+   if( $childSubcategory->getAppBanner() ): 
+     
+   $appbanner = $mediaUrl. 'catalog/category/'.$childSubcategory->getAppBanner();
+echo '<div class="col-sm-4">'. '<a href="'.$childSubcategory->getUrl().'">' .'<img src="'.$appbanner.'">' . '</a>' .'</div>';	
+endif;
+      
+		     
+		        }
+		        echo '</div>';
+        ?>
+
+    <?php 
+        } }
+    ?>
+
+<?php endif; ?>
+
+
+   

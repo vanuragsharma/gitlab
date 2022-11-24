@@ -1,0 +1,44 @@
+<hr/>
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$urlHelper = $objectManager->get('Magento\Backend\Model\UrlInterface');
+$action = $urlHelper->getUrl('yallasales/index/save');
+$exportaction =  $urlHelper->getUrl('yallasales/index/export');
+
+?>
+<div class="pt-3">
+<form action="<?php echo $action; ?>" method="post">
+<?php echo $this->getBlockHtml('formkey')?>
+<input type="text" name="sku" id="reset_sku" placeholder="Enter SKU" /> <input type="submit" name="reset_stock" value="Reset Saleable Quantity" />
+</form>
+</div>
+<form action="<?php echo $exportaction; ?>" method="post">
+<?php echo $this->getBlockHtml('formkey')?>
+<button class="m-30 ml-0">Export Saleable Quantity</button>
+</form>
+<style>
+.pt-3{
+padding-top: 30px;
+}
+.m-30{ margin: 30px;}
+.ml-0{ margin-left: 0px!important; }
+</style>
+<script>
+   require(['jquery', 'jquery/ui'], function($){
+  $(document).ready( function() {
+    $("#export").click(function(){
+var formKey = jQuery("[name='form_key']").val();
+
+console.log("test");
+       $.ajax({
+              url: "https://yallatoys.online/admin_16v333/yallasales/index/export",
+              type: 'POST',
+              data: {form_key: formKey},
+              success: function(){
+             
+              }
+       });
+   });
+  });
+});
+</script>

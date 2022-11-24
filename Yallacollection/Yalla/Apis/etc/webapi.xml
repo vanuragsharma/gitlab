@@ -1,0 +1,326 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <route url="/V1/home/:customerId" method="GET">
+        <service class="Yalla\Apis\Api\HomeInterface" method="getData"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/checkVersion" method="POST">
+        <service class="Yalla\Apis\Api\HomeInterface" method="checkVersion"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <!-- ************ Category Api Start ************ -->
+
+    <!-- ************ Category Api End ************ -->
+
+    <!-- ************ Product Api Start ************ -->
+    <route url="/V1/list/products" method="POST">
+        <service class="Yalla\Apis\Api\ProductRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/products/:categoryId/page/:page/pageSize/:pageSize" method="GET">
+        <service class="Yalla\Apis\Api\ProductApiInterface" method="getListByCategory"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/productdetails/:productId/:customerId" method="GET">
+        <service class="Yalla\Apis\Api\ProductRepositoryInterface" method="productDetails"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/productreview/:productId" method="POST">
+        <service class="Yalla\Apis\Api\ProductRepositoryInterface" method="submitReview"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+<route url="/V1/configurable/options" method="POST">
+        <service class="Yalla\Apis\Api\ConfigurableInterface" method="configurableOptions"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <!-- ************ Product Api End ************ -->
+
+    <route url="/V1/countries" method="GET">
+        <service class="Yalla\Apis\Api\CountriesInterface" method="getCountries"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <!-- ************ Customer Api Start ************ -->
+    <!-- Customer Register -->
+
+    <route url="/V1/customer/socialregister" method="POST">
+        <service class="Yalla\Apis\Api\CustomerApiInterface" method="socialregister"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <!-- Customer Login -->
+
+    <route url="/V1/account/editProfile" method="POST">
+        <service class="Yalla\Apis\Api\CustomerApiInterface" method="editProfile"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/account/getProfile" method="POST">
+        <service class="Yalla\Apis\Api\CustomerApiInterface" method="getProfile"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <!-- Customer Forgot Password-->
+    <route url="/V1/customers/forgotPassword" method="POST">
+        <service class="Yalla\Apis\Api\Customer\AccountManagementInterface" method="initiatePasswordReset"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+        <data>
+            <parameter name="template" force="true">email_reset</parameter>
+        </data>
+    </route>
+
+    <!-- ************ Customer Api end ************ -->
+
+<!-- Country and Region -->
+    <route url="/V1/directory/countries" method="GET">
+        <service class="Yalla\Apis\Api\CountriesInterface" method="getCountriesInfo"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/directory/countries/:countryId" method="GET">
+        <service class="Magento\Directory\Api\CountryInformationAcquirerInterface" method="getCountryInfo"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+        <!--    CustomApi-->
+    <route url="/V1/category/:rootCategoryId" method="GET">
+        <service class="Yalla\Apis\Api\CategoryManagementInterface" method="getTree2"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/allcategories/:rootCategoryId" method="GET">
+        <service class="Yalla\Apis\Api\CategoryManagementInterface" method="getTreeCeligo"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+<!--    CustomApi-->
+
+    <route method="POST" url="/V1/account/login/">
+        <service class="Yalla\Apis\Api\AccountLoginInterface" method="getPost"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route method="POST" url="/V1/account/create/">
+        <service class="Yalla\Apis\Api\AccountCreateInterface" method="getPost"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route method="POST" url="/V1/otp/send">
+        <service class="Yalla\Apis\Api\PostManagementInterface" method="getPost"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route method="POST" url="/V1/otp/verify/">
+        <service class="Yalla\Apis\Api\OtpVerifyInterface" method="getPost"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route method="POST" url="/V1/otp/resetpassword/">
+        <service class="Yalla\Apis\Api\ResetPasswordInterface" method="getPost"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <!-- Address -->
+    <route url="/V1/address" method="POST">
+        <service class="Yalla\Apis\Api\AddressManagementInterface" method="createAddress"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/address/:customer_id" method="GET">
+        <service class="Yalla\Apis\Api\AddressManagementInterface" method="retrieveAddress"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/address" method="PUT">
+        <service class="Yalla\Apis\Api\AddressManagementInterface" method="updateAddress"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+     </route>
+    <route url="/V1/address/:address_id" method="DELETE">
+        <service class="Yalla\Apis\Api\AddressManagementInterface" method="deleteAddress"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <!-- Address -->
+
+    <route url="/V1/addtocart" method="POST">
+        <service class="Yalla\Apis\Api\AddtocartInterface" method="addtocart"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/cart/:customerId" method="GET">
+        <service class="Yalla\Apis\Api\CartInterface" method="getCartData"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/updateCartItem" method="POST">
+        <service class="Yalla\Apis\Api\CartInterface" method="updateCartItem"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/deleteCartItem" method="POST">
+        <service class="Yalla\Apis\Api\CartInterface" method="deleteCartItem"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <!--Order Review-->
+    <route url="/V1/orderreview" method="POST">
+        <service class="Yalla\Apis\Api\QuoteInterface" method="quoteReview"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    
+    <route url="/V1/redeemcoupon" method="POST">
+        <service class="Yalla\Apis\Api\QuoteInterface" method="redeemCoupon"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    
+    <route url="/V1/redeempoints" method="POST">
+        <service class="Yalla\Apis\Api\QuoteInterface" method="redeemPoints"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/clients" method="GET">
+        <service class="Yalla\Apis\Api\ClientsInterface" method="getList"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/gallery" method="GET">
+        <service class="Yalla\Apis\Api\GalleryInterface" method="getList"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/checkout" method="POST">
+        <service class="Yalla\Apis\Api\CheckoutInterface" method="submitOrder"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/order/update" method="POST">
+        <service class="Yalla\Apis\Api\CheckoutInterface" method="updateStatus"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    
+    <route url="/V1/wishlist/:customerId" method="GET">
+        <service class="Yalla\Apis\Api\WishlistInterface" method="get"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/wishlist/add" method="POST">
+        <service class="Yalla\Apis\Api\WishlistInterface" method="add"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/wishlist/delete" method="POST">
+        <service class="Yalla\Apis\Api\WishlistInterface" method="delete"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/brands/all" method="GET">
+        <service class="Yalla\Apis\Api\BrandsInterface" method="getAll"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/characters/all" method="GET">
+        <service class="Yalla\Apis\Api\BrandsInterface" method="getAllCharacters"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/offers" method="GET">
+        <service class="Yalla\Apis\Api\OffersInterface" method="getList"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/search" method="POST">
+        <service class="Yalla\Apis\Api\SearchInterface" method="search"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+        <route url="/V1/customer/order" method="POST">
+        <service class="Yalla\Apis\Api\OrderInterface" method="getOrders"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/contact" method="POST">
+        <service class="Yalla\Apis\Api\ContactInterface" method="contact"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/reorder" method="POST">
+        <service class="Yalla\Apis\Api\QuoteInterface" method="reorder"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/donation" method="POST">
+        <service class="Yalla\Apis\Api\QuoteInterface" method="applyDonation"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+      <add id="Yalla_Vendors::vendors" title="Vendors" translate="title" module="Yalla_Vendors" parent="Magento_Sales::sales" sortOrder="50" dependsOnModule="Yalla_Vendors" resource="Yalla_Vendors::vendors"/>
+      <add id="Yalla_Vendors::vendors_index" title="List" translate="title" module="Yalla_Vendors" parent="Yalla_Vendors::vendors" sortOrder="10" dependsOnModule="Yalla_Vendors" action="vendors/vendors" resource="Yalla_Vendors::vendors"/>
+      <add id="Yalla_Vendors::vendors_orderitems" title="Send Order Items" translate="title" module="Yalla_Vendors" parent="Yalla_Vendors::vendors" sortOrder="10" dependsOnModule="Yalla_Vendors" action="vendors/vendors/orderitems" resource="Yalla_Vendors::vendors"/>
+    </menu>
+</config>
+  

@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    
+    <type name="Magento\Shipping\Model\Shipping">
+        <plugin disabled="false" name="Hide_Express_Shipping" sortOrder="10" type="Yalla\Apis\Plugin\Shipping"/>
+    </type>
+    <type name="Magento\Quote\Model\ShippingMethodManagement">
+        <plugin name="show_free_shipping_method_only" type="Yalla\Apis\Model\ShippingMethodManagement" disabled="false"/>
+    </type>
+    
+    <preference for="Yalla\Apis\Api\HomeInterface" type="Yalla\Apis\Model\Home"/>
+    
+    <preference for="Yalla\Apis\Api\CategoryManagementInterface" type="Yalla\Apis\Model\CategoryManagement" />
+    <preference for="Yalla\Apis\Api\Data\CategoryTreeInterface" type="Magento\Catalog\Model\Category" />
+    <preference for="Yalla\Apis\Api\ProductRepositoryInterface" type="Yalla\Apis\Model\ProductRepository" />
+    <preference for="Yalla\Apis\Api\Data\ConfigurableInterface" type="Yalla\Apis\Model\Data\Configurable" />
+    <preference for="Yalla\Apis\Api\ConfigurableInterface" type="Yalla\Apis\Model\Configurable" />
+
+    <preference for="Yalla\Apis\Api\ProductApiInterface" type="Yalla\Apis\Model\ProductApi" />
+
+    <!-- Customer Api Start -->
+    <preference for="Yalla\Apis\Api\Data\CustomerInterface" type="Yalla\Apis\Model\Data\Customer" />
+    <preference for="Yalla\Apis\Api\Customer\CustomerRepositoryInterface" type="Yalla\Apis\Model\Customer\ResourceModel\CustomerRepository" />
+    <preference for="Yalla\Apis\Api\Customer\AccountManagementInterface" type="Yalla\Apis\Model\Customer\AccountManagement" />
+    <preference for="Yalla\Apis\Api\Customer\CustomerTokenServiceInterface" type="Yalla\Apis\Model\Customer\CustomerTokenService" />
+    
+    <preference for="Yalla\Apis\Api\Customer\Api\CustomerNameGenerationInterface"
+                type="Yalla\Apis\Model\Customer\Helper\View" />
+    <type name="Yalla\Apis\Model\Customer\ResourceModel\Customer">
+        <arguments>
+            <argument name="entitySnapshot" xsi:type="object">EavVersionControlSnapshot</argument>
+            <argument name="entityRelationComposite" xsi:type="object">CustomerRelationsComposite</argument>
+        </arguments>
+    </type>
+    <!-- Customer Api End -->
+
+    <!--Custom API preference-->
+    <preference for="Yalla\Apis\Api\CustomerApiInterface" type="Yalla\Apis\Model\CustomerApi" />
+    <!--Custom API preference End-->
+
+    <preference for="Yalla\Apis\Api\CountriesInterface" type="Yalla\Apis\Model\Countries" />
+
+    
+    <preference for="Yalla\Apis\Api\AccountLoginInterface" type="Yalla\Apis\Model\Api\AccountLogin"/>
+    <preference for="Yalla\Apis\Api\AccountCreateInterface" type="Yalla\Apis\Model\Api\AccountCreate"/>
+    <preference for="Yalla\Apis\Api\PostManagementInterface" type="Yalla\Apis\Model\Api\PostManagement"/>
+    <preference for="Yalla\Apis\Api\OtpVerifyInterface" type="Yalla\Apis\Model\Api\OtpVerify"/>
+    <preference for="Yalla\Apis\Api\ResetPasswordInterface" type="Yalla\Apis\Model\Api\ResetPassword"/>
+
+    <preference for="Yalla\Apis\Api\AddressManagementInterface" type="Yalla\Apis\Model\AddressManagement" />
+
+    <preference for="Yalla\Apis\Api\AddtocartInterface" type="Yalla\Apis\Model\Addtocart" />
+    <preference for="Yalla\Apis\Api\CartInterface" type="Yalla\Apis\Model\Cart"/>
+    <preference for="Yalla\Apis\Api\QuoteInterface" type="Yalla\Apis\Model\Quote"/>
+    
+    <preference for="Yalla\Apis\Api\ClientsInterface" type="Yalla\Apis\Model\Clients"/>
+    <preference for="Yalla\Apis\Api\GalleryInterface" type="Yalla\Apis\Model\Gallery"/>
+    
+    <preference for="Yalla\Apis\Api\CheckoutInterface" type="Yalla\Apis\Model\Checkout"/>
+    
+    <preference for="Yalla\Apis\Api\WishlistInterface" type="Yalla\Apis\Model\Wishlist" />
+
+	<preference for="Yalla\Apis\Api\BrandsInterface" type="Yalla\Apis\Model\Brands" />
+	
+	<preference for="Yalla\Apis\Api\OffersInterface" type="Yalla\Offerbanners\Model\Banners" />
+	
+	<preference for="Yalla\Apis\Api\SearchInterface" type="Yalla\Apis\Model\Search"/>
+	
+	<preference for="Yalla\Apis\Api\OrderInterface" type="Yalla\Apis\Model\Order"/>
+	
+	<preference for="Yalla\Apis\Api\ContactInterface" type="Yalla\Apis\Model\Contact"/>
+	
+</config>
