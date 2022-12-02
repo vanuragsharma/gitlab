@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!-- /**
+ * @category Mageants EventManager
+ * @package Mageants_EventManager
+ * @copyright Copyright (c) 2019 Mageants
+ * @author Mageants Team <support@mageants.com>
+ */ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Mageants_EventManager::config" title="Events Manager" 
+                                translate="title" sortOrder="10" />
+                        </resource>
+                    </resource>
+                </resource>
+           
+
+                <resource id="Mageants_EventManager::eventmanager_content" title="EventManager">
+                        <resource id="Mageants_EventManager::manager" title="EventManager" sortOrder="50" >
+                            <resource id="Mageants_EventManager::add_row" title="Manage Event" sortOrder="10" />
+                            <resource id="Mageants_EventManager::save" title="Save Record" sortOrder="10" />
+                        </resource>
+                        <!-- <resource id="Mageants_EventManager::event" title="Configuration" sortOrder="60" /> -->
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

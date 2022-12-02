@@ -1,0 +1,53 @@
+﻿Legend
+
++ Features
+- Bugs
+
+-------------------------------- Version 4.0.0 --------------------------------------
+
+    + update comoposer.json
+    + Compatible with Magento ver 2.4.x.
+
+-------------------------------- Version 3.0.0 --------------------------------------
+
+    + update comoposer.json
+    - Fix issue after disallowing customer group cart items should be removed.
+    - Fix minor Issues.
+
+-------------------------------- Version 2.2.0 --------------------------------------
+
+    + After disallowing customer group cart items will be moved to wishlist.
+    + After Changing the customer group wishlist products will not be added to cart.
+    - Fix issue after disallowing customer group cart items should be removed.
+    - Fix issue after changing configuration of module then price will not visible on cart.
+    - Fix minor Issues.
+
+-------------------------------- Version 2.1.0 --------------------------------------
+	
+    + Compatible with Magento ver 2.3.x.
+
+-------------------------------- Version 2.0.3 --------------------------------------
+	
+    + Compatible with Magento ver 2.2.x.
+    - Fix issue that after installation of module price not shown on category page.
+
+-------------------------------- Version 2.0.2 --------------------------------------
+	
+    + Admin can can enable or disable the module for any customer group from configuration.
+    + Admin can can enable or disable the module for any customer group for particular product from product attributes.
+    + Admin can add label or link on add to cart button for any product using product attributes.
+    + Admin can add label or link on add to cart button for all product using configuration.
+    + Admin can add label or link on add to cart button any customer group for all product using configuration.
+    + Admin can add label or link on add to cart button any customer group for any product using product attributes.
+    + Admin can set the priority prefrence of configuration setting or particular product setting from configuration.
+
+-------------------------------- Version 2.0.1 --------------------------------------
+	
+    + Admin can enable or disable the module.
+
+
+-------------------------------- Version 2.0.0 --------------------------------------
+	
+    + Price and add to cart button will not display until the store is disable and customer doesn’t login.
+	+ Customer can’t add product to cart without login.
+	+ Also Works with tier price.

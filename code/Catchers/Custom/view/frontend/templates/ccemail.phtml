@@ -1,0 +1,30 @@
+<fieldset class="fieldset create account" data-hasrequired="<?php /* @escapeNotVerified */echo __('* Required Fields') ?>"> 
+    <legend class="legend">
+        <span><?php /* @escapeNotVerified */echo __('Additional Information') ?></span>
+    </legend>
+    <br> 
+    <div class="field ccemail"> 
+        <label class="label" for="cc_email_new">
+            <span><?= $block->escapeHtml(__('Email for Order')) ?></span>
+        </label>
+        <div class="control"> 
+            <input type="email" name="cc_email_new" id="cc_email_new" title="<?php /* @escapeNotVerified */echo __('Email for Order') ?>" value="<?php //echo $block->escapeHtml($block->getCustomer()->getCcEmailNew()) ?>" class="input-text"> 
+        </div> 
+    </div>
+    <div class="field cc_email_shipment"> 
+        <label class="label" for="cc_email_shipment">
+            <span><?= $block->escapeHtml(__('Email for Shipment')) ?></span>
+        </label>
+        <div class="control"> 
+            <input type="email" name="cc_email_shipment" id="cc_email_shipment" title="<?php /* @escapeNotVerified */echo __('Email for Shipment') ?>" value="<?php //echo $block->escapeHtml($block->getCustomer()->getCcEmailShipment()) ?>" class="input-text"> 
+        </div> 
+    </div>
+    <div class="field cc_email_invoice"> 
+        <label class="label" for="cc_email_invoice">
+            <span><?= $block->escapeHtml(__('Email for Invoice')) ?></span>
+        </label>
+        <div class="control"> 
+            <input type="email" name="cc_email_invoice" id="cc_email_invoice" title="<?php /* @escapeNotVerified */echo __('Email for Invoice') ?>" value="<?php //echo $block->escapeHtml($block->getCustomer()->getCcEmailInvoice()) ?>" class="input-text"> 
+        </div> 
+    </div> 
+</fieldset>

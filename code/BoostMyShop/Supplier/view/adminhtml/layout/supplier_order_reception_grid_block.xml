@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="supplier.order.reception.grid.container">
+            <block class="Magento\Backend\Block\Widget\Grid" name="supplier.order.reception.grid" as="grid">
+                <arguments>
+                    <argument name="id" xsi:type="string">receptionGrid</argument>
+                    <argument name="dataSource" xsi:type="object">BoostMyShop\Supplier\Model\ResourceModel\Order\Reception\Collection</argument>
+                    <argument name="use_ajax" xsi:type="string">1</argument>
+                    <argument name="default_sort" xsi:type="string">por_id</argument>
+                    <argument name="default_dir" xsi:type="string">desc</argument>
+                    <argument name="save_parameters_in_session" xsi:type="string">1</argument>
+                    <argument name="grid_url" xsi:type="url" path="*/*/ReceptionGrid"/>
+                </arguments>
+                <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" as="grid.columnSet" name="permission.user.grid.columnSet">
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="por_id">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">ID</argument>
+                            <argument name="sortable" xsi:type="string">true</argument>
+                            <argument name="index" xsi:type="string">por_id</argument>
+                            <argument name="column_css_class" xsi:type="string">no-display</argument>
+                            <argument name="header_css_class" xsi:type="string">no-display</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="por_created_at">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Reception date</argument>
+                            <argument name="type" xsi:type="string">datetime</argument>
+                            <argument name="index" xsi:type="string">por_created_at</argument>
+                            <argument name="escape" xsi:type="string">1</argument>
+                            <argument name="column_css_class" xsi:type="string">col-name</argument>
+                            <argument name="header_css_class" xsi:type="string">col-name</argument>
+                        </arguments>
+                    </block>
+                    
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="por_po_id">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Supplier</argument>
+                            <argument name="type" xsi:type="string">options</argument>
+                            <argument name="options" xsi:type="options" model="BoostMyShop\Supplier\Model\ResourceModel\Supplier\Collection"/>
+                            <argument name="renderer" xsi:type="string">\BoostMyShop\Supplier\Block\Order\Edit\Tab\Reception\Renderer\Supplier</argument>
+                            <argument name="filter" xsi:type="string">\BoostMyShop\Supplier\Block\Order\Edit\Tab\Reception\Filter\SupplierFilter</argument>
+                            <argument name="index" xsi:type="string">por_id</argument>
+                            <argument name="column_css_class" xsi:type="string">col-status</argument>
+                            <argument name="header_css_class" xsi:type="string">col-status</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="po_reference">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Reference</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="renderer" xsi:type="string">\BoostMyShop\Supplier\Block\Order\Edit\Tab\Reception\Renderer\PoReference</argument>
+                            <argument name="filter" xsi:type="string">\BoostMyShop\Supplier\Block\Order\Edit\Tab\Reception\Filter\PoReferenceFilter</argument>
+                            <argument name="index" xsi:type="string">por_id</argument>
+                            <argument name="escape" xsi:type="string">1</argument>
+                            <argument name="column_css_class" xsi:type="string">col-name</argument>
+                            <argument name="header_css_class" xsi:type="string">col-name</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="por_username">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">User</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">por_username</argument>
+                            <argument name="escape" xsi:type="string">1</argument>
+                            <argument name="column_css_class" xsi:type="string">col-name</argument>
+                            <argument name="header_css_class" xsi:type="string">col-name</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="por_product_count">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Products received</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">por_product_count</argument>
+                            <argument name="escape" xsi:type="string">1</argument>
+                            <argument name="column_css_class" xsi:type="string">col-name</argument>
+                            <argument name="header_css_class" xsi:type="string">col-name</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="por_details">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Details</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">por_id</argument>
+                            <argument name="escape" xsi:type="string">1</argument>
+                            <argument name="renderer" xsi:type="string">\BoostMyShop\Supplier\Block\Order\Edit\Tab\Reception\Renderer\Details</argument>
+                            <argument name="filter" xsi:type="string">0</argument>
+                            <argument name="column_css_class" xsi:type="string">col-name</argument>
+                            <argument name="header_css_class" xsi:type="string">col-name</argument>
+                        </arguments>
+                    </block>
+                </block>
+            </block>
+
+        </referenceBlock>
+    </body>
+</page>

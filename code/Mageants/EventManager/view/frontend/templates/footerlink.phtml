@@ -1,0 +1,16 @@
+<?php
+	if($data=$this->helper('Mageants\EventManager\Helper\Data')->getConfigValue('event/general/Enablefooterlink')){?>
+
+
+	 <ul class="footer links">
+		<li class = "nav item" >
+        <a href="<?php echo $block->getStore()->getBaseUrl().'eventsmanager'; ?>">
+        <?php echo $this->helper('Mageants\EventManager\Helper\Data')->getConfigValue('event/general/footerlink'); ?>
+        </a>
+    	</li>
+    </ul>
+	<?php } ?>
+
+
+
+

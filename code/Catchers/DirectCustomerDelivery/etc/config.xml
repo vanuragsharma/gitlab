@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <directcustomerdelivery>
+                <active>1</active>
+                <model>Catchers\DirectCustomerDelivery\Model\Carrier\DirectCustomerDelivery</model>
+                <name>Direct Customer delivery</name>
+                <price>75.00</price>
+                <title>Direct Customer delivery</title>
+                <sallowspecific>0</sallowspecific>
+                <sort_order>510</sort_order>
+            </directcustomerdelivery>
+        </carriers>
+    </default>
+</config>

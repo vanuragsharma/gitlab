@@ -1,0 +1,52 @@
+"Email Cart Statistics","Email Cart Statistics"
+"Email Quote","Email Quote"
+"Email Quote Statistics","Email Quote Statistics"
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"Shipping Price","Shipping Price"
+"Tax Rate","Tax Rate"
+"Grand Total","Grand Total"
+"Your Quote has been Sent Successfully","Your Quote has been Sent Successfully"
+"Please select some products, we will process it soon.","Please select some products, we will process it soon."
+"You Have ' . . ' New Inquiries In Magecomp Email Quote","You Have ' . . ' New Inquiries In Magecomp Email Quote"
+"Unknown template type","Unknown template type"
+"Send Quote","Send Quote"
+"Update Quote","Update Quote"
+"<tr class='not-quote'> <td colspan='4'>Still you have not sent any quote to Admin</td></tr>","<tr class='not-quote'> <td colspan='4'>Still you have not sent any quote to Admin</td></tr>"
+Approved,Approved
+Clicked,Clicked
+Orderd,Orderd
+"Your Request Has Been Submitted Successfully.","Your Request Has Been Submitted Successfully."
+"Something Went Wrong, Please Try Later.","Something Went Wrong, Please Try Later."
+Name,Name
+Email,Email
+Telephone,Telephone
+Comment,Comment
+Submit,Submit
+"Hello ","Hello "
+"Thank You for Your Interest in our Product(s).","Thank You for Your Interest in our Product(s)."
+"Your Quote Request","Your Quote Request"
+"is Ready. Please Click Checkout Button to Place an Order.","is Ready. Please Click Checkout Button to Place an Order."
+Checkout,Checkout
+"Thank you again","Thank you again"
+Configuration,Configuration
+"Email Quote Pro","Email Quote Pro"
+"Email Quote Label","Email Quote Label"
+"Email ID of Admin","Email ID of Admin"
+"Admin Email Template","Admin Email Template"
+"Customer Email Template","Customer Email Template"
+"Email Sender","Email Sender"
+"Email Quote For Admin Configuration","Email Quote For Admin Configuration"
+"PDF Attachement Configuration","PDF Attachement Configuration"
+"Email Quote PDF","Email Quote PDF"
+"PDF Footer Text","PDF Footer Text"
+"Delete items","Delete items"
+"Delete selected items?","Delete selected items?"
+Delete,Delete
+IDs,IDs
+"Quote Id","Quote Id"
+"Customer Name","Customer Name"
+"Customer Email","Customer Email"
+"Product SKU","Product SKU"
+"Order Total","Order Total"
+"Created At","Created At"
+Status,Status

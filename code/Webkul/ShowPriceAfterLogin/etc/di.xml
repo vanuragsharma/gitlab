@@ -1,0 +1,51 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- plugin for not showing price at category page -->
+    <type name="\Magento\Catalog\Block\Product\ListProduct">
+        <plugin name="Webkul_ShowPriceAfterLogin::aroundCategory"
+                type="Webkul\ShowPriceAfterLogin\Plugin\Product\Category\ProductList"
+                sortOrder="20" />
+    </type>
+
+    <!-- plugin for not showing price at search result page -->
+    <type name="\Magento\CatalogSearch\Block\SearchResult\ListProduct">
+        <plugin name="Webkul_ShowPriceAfterLogin::aroundSearch"
+                type="Webkul\ShowPriceAfterLogin\Plugin\Catalog\Search\ProductList"
+                sortOrder="20" />
+    </type>
+
+    <!-- plugin for not showing price at widget product list -->
+    <type name="\Magento\CatalogWidget\Block\Product\ProductsList">
+        <plugin name="Webkul_ShowPriceAfterLogin::aroundWidget"
+                type="Webkul\ShowPriceAfterLogin\Plugin\Catalog\Widget\ProductList"
+                sortOrder="20" />
+    </type>
+
+    <!-- plugin for not showing price at compare product list -->
+    <type name="\Magento\Catalog\Block\Product\Compare\ListCompare">
+        <plugin name="Webkul_ShowPriceAfterLogin::aroundCompare"
+                type="Webkul\ShowPriceAfterLogin\Plugin\Catalog\Compare\ProductList"
+                sortOrder="20" />
+    </type>
+    
+    <!-- plugin for not showing price at wishlist product list -->
+    <type name="\Magento\Wishlist\Block\Customer\Sidebar">
+        <plugin name="Webkul_ShowPriceAfterLogin::wishlist"
+                type="Webkul\ShowPriceAfterLogin\Plugin\Wishlist\Block\Customer\WishlistProduct"
+                sortOrder="20" />
+    </type>
+     <!-- plugin for disallow product to be added -->
+    <type name="Magento\Checkout\Model\Cart">
+		<plugin name="Product_add_stop" type="Webkul\ShowPriceAfterLogin\Plugin\Checkout\Model\Cart" sortOrder="1" />
+    </type>
+    <preference for="Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Cart" type="Webkul\ShowPriceAfterLogin\Block\Customer\Wishlist\Item\Column\Cart" />
+     <type name="\Magento\Catalog\Block\Ui\ProductViewCounter">
+		<plugin name="source_js_data_change" type="Webkul\ShowPriceAfterLogin\Plugin\ProductViewCounter" sortOrder="1" />
+    </type>
+
+    <!-- plugin for not showing price at widget product list -->
+    <type name="\Magento\Catalog\Block\Product\AbstractProduct">
+        <plugin name="Webkul_ShowPriceAfterLogin::aroundMgs"
+                type="Webkul\ShowPriceAfterLogin\Plugin\Catalog\Block\Product\AbstractProduct"
+                sortOrder="20" />
+    </type>
+</config>

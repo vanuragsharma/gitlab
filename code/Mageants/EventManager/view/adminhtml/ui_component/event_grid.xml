@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- /**
+* @category Mageants EventManager
+* @package Mageants_EventManager
+* @copyright Copyright (c) 2019 Mageants
+* @author Mageants Team <support@mageants.com>
+*/ -->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="deps" xsi:type="string">event_grid.event_data_data_source</item>
+            <item name="provider" xsi:type="string">event_grid.event_data_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">grid_records_columns</item>
+        <item name="buttons" xsi:type="array">
+            <item name="add" xsi:type="array">
+                <item name="name" xsi:type="string">add</item>
+                <item name="label" xsi:type="string" translate="true">Add Events</item>
+                <item name="class" xsi:type="string">primary</item>
+                <item name="url" xsi:type="string">*/*/AddRow</item>
+            </item> 
+        </item>
+    </argument>
+    <dataSource name="event_data_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">event_data_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">e_id</argument>
+            <argument name="requestFieldName" xsi:type="string">e_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                     <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">e_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <container name="listing_top">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="template" xsi:type="string">ui/grid/toolbar</item>
+            </item>
+        </argument>
+        <bookmark name="bookmarks">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/controls/bookmarks/bookmarks</item>
+                    <item name="displayArea" xsi:type="string">dataGridActions</item>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="saveUrl" xsi:type="url" path="mui/bookmark/save"/>
+                        <item name="deleteUrl" xsi:type="url" path="mui/bookmark/delete"/>
+                        <item name="namespace" xsi:type="string">event_grid</item>
+                    </item>
+                </item>
+            </argument>
+        </bookmark>
+        <container name="columns_controls">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                        <item name="provider" xsi:type="string">event_grid.event_grid.grid_records_columns</item>
+                    <item name="columnsData" xsi:type="array">
+                    </item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/controls/columns</item>
+                    <item name="displayArea" xsi:type="string">dataGridActions</item>
+                </item>
+            </argument>
+        </container>
+        <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="columnsProvider" xsi:type="string">event_grid.event_grid.grid_records_columns</item>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">event_grid.event_grid.listing_top.bookmarks</item>
+                        <item name="namespace" xsi:type="string">current.filters</item>
+                    </item>
+                    <item name="templates" xsi:type="array">
+                        <item name="filters" xsi:type="array">
+                            <item name="select" xsi:type="array">
+                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>
+                                <item name="template" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                            </item>
+                        </item>
+                    </item>
+                    <item name="childDefaults" xsi:type="array">
+                        <item name="provider" xsi:type="string">event_grid.event_grid.listing_top.listing_filters</item>
+                        <item name="imports" xsi:type="array">
+                            <item name="visible" xsi:type="string">event_grid.event_grid.grid_records_columns.${ $.index }:visible</item>
+                        </item>
+                    </item>
+                </item>
+                <item name="observers" xsi:type="array">
+                    <item name="column" xsi:type="string">column</item>
+                </item>
+            </argument>
+        </filters>
+      
+         <massaction name="listing_massaction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="selectProvider" xsi:type="string">event_grid.event_grid.grid_records_columns.ids</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+                    <item name="indexField" xsi:type="string">e_id</item>
+                </item>
+            </argument>
+            <action name="delete">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Delete items</item>
+                            <item name="message" xsi:type="string" translate="true">Delete selected items?</item>
+                        </item>
+                        <item name="type" xsi:type="string">delete</item>
+                        <item name="label" xsi:type="string" translate="true">Delete</item>
+                        <item name="url" xsi:type="url" path="event/data/MassDelete"/>
+                    </item>
+                </argument>
+            </action>
+
+            <action name="Enable">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">Enable</item>
+                        <item name="label" xsi:type="string" translate="true">Enable</item>
+                        <item name="url" xsi:type="url" path="event/data/statusenable"/>
+                    </item>
+                </argument>
+              </action>
+              <action name="Disable">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">Disable</item>
+                        <item name="label" xsi:type="string" translate="true">Disable</item>
+                        <item name="url" xsi:type="url" path="event/data/statusdisable"/>
+                    </item>
+                </argument>
+              </action>
+        </massaction>
+        <paging name="listing_paging">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">event_grid.event_grid.listing_top.bookmarks</item>
+                        <item name="namespace" xsi:type="string">current.paging</item>
+                    </item>
+                    <item name="selectProvider" xsi:type="string">event_grid.event_grid.grid_records_columns.ids</item>
+                    <item name="displayArea" xsi:type="string">bottom</item>
+                    <item name="options" xsi:type="array">
+                        <item name="20" xsi:type="array">
+                            <item name="value" xsi:type="number">20</item>
+                            <item name="label" xsi:type="string" translate="true">20</item>
+                        </item>
+                        <item name="30" xsi:type="array">
+                            <item name="value" xsi:type="number">30</item>
+                            <item name="label" xsi:type="string" translate="true">30</item>
+                        </item>
+                        <item name="50" xsi:type="array">
+                            <item name="value" xsi:type="number">50</item>
+                            <item name="label" xsi:type="string" translate="true">50</item>
+                        </item>
+                        <item name="100" xsi:type="array">
+                            <item name="value" xsi:type="number">100</item>
+                            <item name="label" xsi:type="string" translate="true">100</item>
+                        </item>
+                        <item name="200" xsi:type="array">
+                            <item name="value" xsi:type="number">200</item>
+                            <item name="label" xsi:type="string" translate="true">200</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </paging>
+    </container>
+    <columns name="grid_records_columns">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="storageConfig" xsi:type="array">
+                    <item name="provider" xsi:type="string">event_grid.event_grid.listing_top.bookmarks</item>
+                    <item name="namespace" xsi:type="string">current</item>
+                </item>
+                <item name="childDefaults" xsi:type="array">
+                    <item name="fieldAction" xsi:type="array">
+                        <item name="provider" xsi:type="string">event_grid.event_grid.grid_records_columns.actions</item>
+                        <item name="target" xsi:type="string">applyAction</item>
+                        <item name="params" xsi:type="array">
+                            <item name="0" xsi:type="string">edit</item>
+                            <item name="1" xsi:type="string">${ $.$data.rowIndex }</item>
+                        </item>
+                    </item>
+                    <item name="controlVisibility" xsi:type="boolean">true</item>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">event_grid.event_grid.listing_top.bookmarks</item>
+                        <item name="root" xsi:type="string">columns.${ $.index }</item>
+                        <item name="namespace" xsi:type="string">current.${ $.storageConfig.root}</item>
+                    </item>
+                </item>
+            </item>
+        </argument>
+
+        <selectionsColumn name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">55</item>
+                    <item name="label" xsi:type="string" translate="true">IDs</item>
+                    <item name="indexField" xsi:type="string">e_id</item>
+                    
+                </item>
+                <item name="sortOrder" xsi:type="number">0</item>
+            </argument>
+        </selectionsColumn>
+
+        <column name="e_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">ID</item>
+                </item>
+            </argument>
+        </column>
+        <column name="event_title" >
+           <argument name="data" xsi:type="array">
+               <item name="config" xsi:type="array">
+                   <item name="filter" xsi:type="string">text</item>
+                   <item name="label" xsi:type="string" translate="true">Title</item>
+               </item>
+           </argument>
+       </column>
+       <column name="start_date" >
+           <argument name="data" xsi:type="array">
+               <item name="config" xsi:type="array">
+                   <item name="filter" xsi:type="string">dateRange</item>
+                   <item name="editor" xsi:type="string">text</item>
+                   <item name="label" xsi:type="string" translate="true">Start Date</item>
+               </item>
+           </argument>
+       </column>
+       <column name="end_date" >
+           <argument name="data" xsi:type="array">
+               <item name="config" xsi:type="array">
+                   <item name="filter" xsi:type="string">dateRange</item>
+                   <item name="editor" xsi:type="string">text</item>
+                   <item name="label" xsi:type="string" translate="true">End Date</item>
+               </item>
+           </argument>
+       </column>
+       <column name="urlprefix" >
+           <argument name="data" xsi:type="array">
+               <item name="config" xsi:type="array">
+                   <item name="filter" xsi:type="string">text</item>
+                   <item name="label" xsi:type="string" translate="true">Urlprefix</item>
+               </item>
+           </argument>
+       </column>
+       <column name="storeview" class="Mageants\EventManager\Ui\Component\Listing\Column\Stores">
+            <argument name="data" xsi:type="array">
+            <item name="options" xsi:type="object">Mageants\EventManager\Model\Config\Source\Stores</item>
+            <item name="config" xsi:type="array">
+            <item name="filter" xsi:type="string">select</item>
+            <item name="dataType" xsi:type="string">select</item>
+            <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+            <item name="sortable" xsi:type="boolean">false</item>
+            <item name="label" xsi:type="string" translate="true">Store View</item>
+            </item>
+            </argument>
+      </column>
+
+       <column name="latitude" >
+           <argument name="data" xsi:type="array">
+               <item name="config" xsi:type="array">
+                   <item name="filter" xsi:type="string">text</item>
+                   <item name="label" xsi:type="string" translate="true">latitude</item>
+               </item>
+           </argument>
+       </column>
+       <column name="longitude" >
+           <argument name="data" xsi:type="array">
+               <item name="config" xsi:type="array">
+                   <item name="filter" xsi:type="string">text</item>
+                   <item name="label" xsi:type="string" translate="true">longitude</item>
+               </item>
+           </argument>
+       </column>
+       <column name="status">
+        <argument name="data" xsi:type="array">
+            <item name="options" xsi:type="object">Mageants\EventManager\Model\Config\Source\Yesno</item>
+            <item name="config" xsi:type="array">
+                <item name="sortOrder" xsi:type="number">60</item>
+                <item name="filter" xsi:type="string">select</item>
+                <item name="label" translate="true" xsi:type="string">status</item>
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                <item name="dataType" xsi:type="string">select</item>
+                <item name="editor" xsi:type="array">
+                    <item name="editorType" xsi:type="string">select</item>
+                </item>
+            </item>
+        </argument>
+       </column>
+       <column name="created_at" >
+           <argument name="data" xsi:type="array">
+               <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                   <item name="editor" xsi:type="string">text</item>
+                   <item name="label" xsi:type="string" translate="true">created</item>
+               </item>
+           </argument>
+       </column>
+       <actionsColumn name="editlabel" class="Mageants\EventManager\Ui\Component\Listing\Column\Actions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="indexField" xsi:type="string">e_id</item>
+                    <item name="urlEntityParamName" xsi:type="string">e_id</item>
+                    <item name="sortOrder" xsi:type="number">150</item>
+                </item>
+                <item name="sortOrder" xsi:type="number">150</item>
+            </argument>
+        </actionsColumn>
+        
+    </columns>
+</listing>

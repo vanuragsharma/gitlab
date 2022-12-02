@@ -1,0 +1,97 @@
+<div class="column main">
+    
+
+<div class="modes">
+        
+    <strong class="modes-label" id="modes-label">View as</strong>
+    <span class="modes-mode"><a href="<?php echo $block->getBaseUrl().'eventsmanager/index/index/'?>"><b>Grid</b></a></span>  
+</div>
+
+<?php $eventdataCollection = $this->getEventviewCollection();    
+     foreach ($eventdataCollection as $eventdata):?> 
+        <div class="class-calendar" id="calendar">
+                 
+           <div class="cal-evanto" eventid="<?php echo $eventdata->getEId();?>" style="left: 217px; top: 267px; display: block;">     
+                 <div class="eventoDetails">
+                      <p class="eventHeading">
+                        <a href="<?php echo $block->getBaseUrl().'eventsmanager/index/view/id/'.$eventdata->getUrlprefix().'.html';?>"><?php echo $eventdata->getEventTitle(); ?></a></p>
+                   <div class="desc">
+                         <div class="cal-topics">
+                              <label>StartDate: </label>
+                                <?php echo $eventdata->getStartDate(); ?>
+                        </div>
+                        <div class="cal-topics">
+                                        <label>EndDate: </label>
+                                        <?php echo $eventdata->getEndDate(); ?>
+                        </div>
+                         <div class="cal-topics">
+                                  <label>Location: </label>
+                                 <?php echo $eventdata->getVenue(); ?>
+                        </div>
+                   </div>
+                            <div class="">
+                                    <a href="<?php echo $block->getBaseUrl().'eventsmanager/index/view/id/'.$eventdata->getUrlprefix().'.html';?>"  class="link-learn">Learn More</a>
+                             </div>
+               </div>
+           </div>
+        </div>
+      <?php endforeach; ?>
+
+      
+      <script type="text/javascript">            
+            require(['jquery','moment','fullcalendar'], function($,moment){
+
+                var $j = $.noConflict();
+                $(document).ready(function () {
+                    var calendar = $('#calendar').fullCalendar({
+                    header:{
+                        left:'prev,next today',
+                        center:'title',
+                        right:'month,agendaWeek,agendaDay'
+                    },
+                    eventTextColor: 'white',
+                    events: "<?php echo $block->getBaseUrl().'eventsmanager/index/eventcalendar/' ?>",
+                    displayEventTime: false,
+                    eventMouseover: popupEventDisplay,
+                    eventMouseout:  popupEventFade,
+
+                                     
+                    /*eventRender: function (event, element, view) {
+                    if (event.allDay === 'true') {
+                        event.allDay = true;
+                    } else {
+                        event.allDay = false;
+                    }
+                    
+                },*/
+            }); 
+
+                 function popupEventDisplay(event, jsEvent, view ) { 
+                                var projectionTowardsLeft = $(window).width() - jsEvent.clientX;
+                                    var popupWideDimension = $('.cal-evanto[eventId="'+event.id+'"]').width();
+                                    if (projectionTowardsLeft > popupWideDimension) {
+                                        $('.cal-evanto[eventId="'+event.id+'"]').css({left:jsEvent.clientX,top:jsEvent.clientY}).show();
+
+                                    } else {
+                                        var leftPos = $(window).width() - popupWideDimension;
+                                        $('.cal-evanto[eventId="'+event.id+'"]').css({left:leftPos,top:jsEvent.clientY}).show();
+                                    }
+                                }
+                                function popupEventFade(event, jsEvent, view ) {
+                                    $('.cal-evanto[eventId="'+event.id+'"]').hide();
+                                }
+                                $('.cal-evanto').hover(function() {$(this).show()}, function() {$(this).hide()});
+
+
+
+
+                
+        });
+    
+             
+                      
+    });
+
+    </script>
+ 
+</div>

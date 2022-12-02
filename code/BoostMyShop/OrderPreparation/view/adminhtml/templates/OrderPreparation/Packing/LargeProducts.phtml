@@ -1,0 +1,58 @@
+<?php if ($this->canDisplay()): ?>
+<?php
+$numOfCols = 6;
+$rowCount = 0;
+$bootstrapColWidth = 12 / $numOfCols; ?>
+    <form method="POST" action="<?php echo $this->getSubmitUrl(); ?>" id="frm_products">
+        <input type="hidden" name="form_key" value="<?php echo $this->getFormKey(); ?>">
+        <input type="hidden" name="order_id" value="<?php echo $this->currentOrderInProgress()->getId(); ?>">
+        <?php echo $this->getAdditionalHtmlInProductsForm(); ?>
+
+        <div class="row large-product-content-row">
+        <?php foreach($this->getProducts() as $item): ?>
+            <div class="col-md-2 large-product-content-col" id="product_<?php echo $item->getId(); ?>">
+                <div class="product_content_name">
+                    <span id="div_name_<?php echo $item->getId(); ?>" class="col-product-name"><?php echo $item->getname(); ?></span>
+                    <?php if ($confOptions = $this->getConfigurableOptionsAsText($item)): ?>
+                        <br><i><?php echo $confOptions; ?></i>
+                    <?php endif; ?>
+                    <?php if ($custOptions = $this->getProductOptions($item)): ?>
+                        <br><i><?php echo $custOptions; ?></i>
+                    <?php endif; ?>
+                </div>
+                <div class="product_content_qty">
+                    <span id="qty_scanned_<?php echo $item->getId(); ?>">0</span>
+                    <input type="hidden" size="5" name="products[<?php echo $item->getipi_order_item_id(); ?>]" id="qty_packed_<?php echo $item->getId(); ?>" value="0">/
+                    <span id="div_qty_to_ship_">
+                        <span id="div_qty_to_ship_<?php echo $item->getId(); ?>">
+                            <?php echo $item->getipi_qty(); ?>
+                        </span>
+                        <input type="hidden" id="qty_to_ship_<?php echo $item->getId(); ?>" value="<?php echo $item->getipi_qty(); ?>">
+                        <input type="hidden" id="barcode_<?php echo $item->getId(); ?>" value="<?php echo $this->getBarcode($item->getproduct_id()); ?>">
+                    </span>X
+                    <span id="div_sku_<?php echo $item->getId(); ?>"><?php echo $item->getsku(); ?></span>
+                </div>
+            </div>
+            <?php $rowCount++;
+            if($rowCount % $numOfCols == 0) echo '</div><div class="row large-product-content-row">';?>
+        <?php endforeach; ?>
+        </div>
+        <table class="tbl-order">
+            <tr>
+                <th>
+                    <?php echo __('Total weight'); ?> :
+                    <input type="text" size="5" value="<?php echo $this->currentOrderInProgress()->getEstimatedWeight(); ?>" style="color: black;" id="total_weight" name="total_weight">
+                </th>
+                <th>
+                    <?php echo __('Parcel count'); ?> :
+                    <input type="text" size="5" value="1" style="color: black;" id="parcel_count" name="parcel_count">
+                </th>
+            </tr>
+        </table>
+    </form>
+<?php endif; ?>
+
+<div id="edit_popup" style="display:none;">
+</div>
+
+<?php echo $this->getAdditionnalHtml(); ?>

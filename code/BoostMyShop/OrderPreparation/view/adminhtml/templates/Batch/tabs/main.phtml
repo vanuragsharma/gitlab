@@ -1,0 +1,83 @@
+<?php
+
+$batch = $block->getBatch();
+?>
+<input type="hidden" name="bob_id" value="<?php echo $batch->getId(); ?>">
+
+<div class="entry-edit form-inline">
+    <fieldset class="fieldset admin__fieldset">
+        <input id="page_bq_id" name="bq_id" value="1" type="hidden">
+        <div class="admin__field">
+            <label class="label admin__field-label">
+                <span><?php echo __("Label");?></span>
+            </label>
+            <div class="admin__field-control control">
+                <div class="control-value"><?php echo $batch->getbob_label()?></div>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="label admin__field-label">
+                <span><?php echo __("Warehouse");?></span>
+            </label>
+            <div class="admin__field-control control">
+                <div class="control-value"><?php echo $this->getWarehouse()?></div>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="label admin__field-label">
+                <span><?php echo __("Created at");?></span>
+            </label>
+            <div class="admin__field-control control">
+                <div class="control-value"><?php echo $block->formatDate($batch->getbob_created_at(), \IntlDateFormatter::MEDIUM, true); ?></div>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="label admin__field-label">
+                <span><?php echo __("Order count");?></span>
+            </label>
+            <div class="admin__field-control control">
+                <div class="control-value"><?php echo $batch->getbob_order_count()?></div>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="label admin__field-label">
+                <span><?php echo __("Product count");?></span>
+            </label>
+            <div class="admin__field-control control">
+                <div class="control-value"><?php echo $batch->getbob_product_count()?></div>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="label admin__field-label">
+                <span><?php echo __("Progress");?></span>
+            </label>
+            <div class="admin__field-control control">
+                <div class="control-value"><?php echo $batch->getbob_progress()?></div>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="label admin__field-label">
+                <span><?php echo __("Carrier");?></span>
+            </label>
+            <div class="admin__field-control control">
+                <div class="control-value"><?php echo $this->getShippingMethods($batch->getbob_carrier())?></div>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="label admin__field-label">
+                <span><?php echo __("Type");?></span>
+            </label>
+            <div class="admin__field-control control">
+                <div class="control-value"><?php echo $batch->getbob_type()?></div>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="label admin__field-label">
+                <span><?php echo __("Status");?></span>
+            </label>
+            <div class="admin__field-control control">
+                <div class="control-value"><?php echo $batch->getbob_status()?></div>
+            </div>
+        </div>
+    </fieldset>
+</div>

@@ -1,0 +1,49 @@
+<style>
+    
+    .div-shipping-method
+    {
+        width: 200px;
+        background-color: #cccccc;
+        float: left;
+        padding: 2px;
+        margin: 5px;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .div-shipping-method-selected
+    {
+        width: 200px;
+        background-color: #FF9900;
+        float: left;
+        padding: 2px;
+        margin: 5px;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .div-method-list
+    {
+        clear: both;
+        display: inline-block;
+        margin-bottom: 30px;;
+    }
+    
+</style>
+<?php
+$carrierCodes = $this->getCarrierCodeInCarrierTemplate();
+$carrierMethods = $this->getmethodsInCarrierTemplate();
+?>
+<?php foreach($this->getCarriers() as $code => $carrier): ?>
+    <?php if(in_array($code, $carrierCodes)):?>
+        <h2><?php echo $carrier->getName(); ?></h2>
+        <hr>
+        <div class="div-method-list">
+            <?php foreach($this->getMethods($carrier) as $methodCode => $method): ?>
+            <?php if(in_array($methodCode, $carrierMethods)):?>
+                <div class="div-shipping-method<?php echo ($methodCode == $this->getCurrentMethod() ? '-selected' : ''); ?>"><a href="<?php echo $this->getChangeShippingMethodUrl($methodCode); ?>"><?php echo $method; ?></a></div>
+            <?php endif;?>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+<?php endforeach; ?>

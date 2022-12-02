@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_UvDeskConnector
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <webkulShowPriceAfterLogin>
+            <storeAbility>
+                <enableOrDisableStoreField>0</enableOrDisableStoreField>
+                <enableOrDisableCategory>0</enableOrDisableCategory>
+            </storeAbility>
+            <callForPrice>
+                <callForPriceEnable>0</callForPriceEnable>
+                <callForPriceTitle>Login To view Price</callForPriceTitle>
+                <callForPriceLink>customer/account/login</callForPriceLink>
+            </callForPrice>
+            <callForPriceConfigPriority>
+                <callForPriceConfigPriorityEnable>general_configuration</callForPriceConfigPriorityEnable>
+            </callForPriceConfigPriority>
+        </webkulShowPriceAfterLogin>
+    </default>
+</config>

@@ -1,0 +1,21 @@
+<?php if ($this->canDisplay()): ?>
+
+    <center>
+        <?php if($this->isLabelPregenerated()): ?>
+            <button title="Regenerate Label" type="button" id = "hold-url" onclick="packingObj.deleteShippingLabel('<?php echo $this->getDeletePregeneratedLabelUrl(); ?>');" class="action-default scalable action-primary" style="height: 50px; font-size: 24px;">
+                <span><?php echo __('Delete pre-generated label'); ?></span>
+            </button>
+        <?php endif; ?>
+        <button title="Commit" type="button" onclick="packingObj.commitPacking();" id="commit_packing" class="action-default scalable action-primary" style="height: 50px; font-size: 24px;">
+            <span><?php echo __('Commit packing'); ?></span>
+        </button>
+        <button title="Hold" type="button" class="action-default scalable action-primary hold_order" id = "hold-url" data-hold-url = "<?php echo $this->getHoldOrderUrl(); ?>" data-inprogress-url = "<?php echo $this->getPackingUrl(); ?>" style="height: 50px; font-size: 24px;">
+            <span><?php echo __('Hold Order'); ?></span>
+        </button>
+    </center>
+<?php endif; ?>
+
+<p>&nbsp;<p>
+<p>&nbsp;</p>
+<p>&nbsp;<p>
+<p>&nbsp;</p>

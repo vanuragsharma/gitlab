@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul 
+ * @package   Webkul_ShowPriceAfterLogin
+ * @author    Webkul Software Private Limited
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+	<event name="view_block_abstract_to_html_before">
+        <observer name="remove_block" instance="Webkul\ShowPriceAfterLogin\Observer\OnProductView" />
+    </event>
+    <event name="checkout_cart_product_add_after">
+        <observer name="checkout_cart_product_add_after" instance="Webkul\ShowPriceAfterLogin\Observer\CartAddAfter" />
+    </event>    
+    <event name="controller_action_predispatch_checkout">
+        <observer name="webkul_showpriceafterlogin_checkout_after" instance="Webkul\ShowPriceAfterLogin\Observer\AfterCheckout"/>
+    </event>    
+    <event name="controller_action_catalog_product_save_entity_after">
+        <observer name="webkul_showpriceafterlogin_product_save_after" instance="Webkul\ShowPriceAfterLogin\Observer\AfterProductSave"/>
+    </event>
+     <event name="controller_action_predispatch">
+        <observer name="move_from_cart_to_wishlist" instance="Webkul\ShowPriceAfterLogin\Observer\MoveToWishlist"/>
+    </event> 
+</config>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="InitSupplyDiscontinued" xsi:type="object">BoostMyShop\Supplier\Console\Command\InitSupplyDiscontinued</item>
+                <item name="UpdateProductCost" xsi:type="object">BoostMyShop\Supplier\Console\Command\UpdateProductCost</item>
+                <item name="UpdateQuantityToReceive" xsi:type="object">BoostMyShop\Supplier\Console\Command\UpdateQuantityToReceive</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <preference for="Magento\Backend\Block\Widget\Grid\Massaction\Extended" type="BoostMyShop\Supplier\Block\Magento\Backend\Block\Widget\Grid\Massaction\GridExtendedBms" />
+
+</config>

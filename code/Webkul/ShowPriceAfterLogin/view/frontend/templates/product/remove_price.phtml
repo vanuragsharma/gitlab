@@ -1,0 +1,200 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_ShowPriceAfterLogin
+ * @author    Webkul Software Private Limited
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<?php
+  $block->setRedirectReferer();
+if (!$block->isStoreAvilable()) {
+    return ;
+}
+if ($block->isAllowedForGuestUser($block->getProduct())) {
+    return ;
+}
+  $url = $block->getLoginUrl();
+  $callForPriceAttribute = $block->getAllShowPriceAfterLoginModuleAttribute();
+
+  $label = $escaper->escapeHtml($callForPriceAttribute['call_for_price_label']);
+if ($label == "") {
+    $label = __("Not allowed to view price");
+}
+  $link = $callForPriceAttribute['call_for_price_link'];
+  $link = $block->checkUrl($escaper->escapeHtml($link));
+if ($link == "") {
+    $link = $block->getUrl('contact');
+}
+  $callForPriceConfigLabel = $block->callForPriceConfigLabel();
+if ($callForPriceConfigLabel == "") {
+    $callForPriceConfigLabel = __("Not allowed to view price");
+}
+  $callForPriceConfigLink = $block->callForPriceConfigLink();
+  $callForPriceConfigLink = $block->checkUrl($callForPriceConfigLink);
+if ($callForPriceConfigLink == "") {
+    $callForPriceConfigLink = $block->getUrl('contact');
+}
+  $isCallForPriceConfigSetting = $block->isCallForPriceConfigSetting();
+  $showWarningsForUnauthGroupUrl = $block->getUrl('showprice/index/index');
+if ($callForPriceAttribute['show_price'] && $block->configPriority() == "product_configuration") {
+    if ($block->isCustomerLoggedIn()) {
+        if (!$block->isAllowedCustomerGroupsForParticularProduct($callForPriceAttribute['show_price_customer_group'])) { ?>
+          <script>
+              require([
+              "jquery",
+              'Magento_Customer/js/customer-data'
+              ], function($, customer){
+                $.ajax({
+                    url:"<?=$escaper->escapeUrl($showWarningsForUnauthGroupUrl)?>",
+                    success: function ($data) {
+                      customer.reload('customer')
+                    }
+                });
+              });
+          </script>
+            <?php if ($callForPriceAttribute['call_for_price']) { ?>
+          <script>
+          var label = '<?=$escaper->escapeHtml($label);?>';
+          var url   ='<?=$escaper->escapeUrl($link); ?>';
+          require([
+          "jquery",
+          ], function($){
+            var closeButton = '<a href="'+url+'" class="action primary tocart" title="'+label+'">'+label+'</a>';
+            $("#product-options-wrapper").remove();
+            $("#product-addtocart-button").remove();
+            $('.box-tocart .actions').html(closeButton);
+          });
+          </script><?php
+            } else { ?>
+            <script>
+            var label = "Logged in customer group<br>not allowed to View Price";
+            var url   ='<?= $escaper->escapeUrl("#"); ?>';
+            require([
+            "jquery",
+            ], function($){
+              style ='style="background: white;color: black;border: none;padding: 0 0;font-weight:400"';
+              var closeButton = '<a href="'+url+'" class="action primary tocart" title="'+label+'"' +style+'">'+label+'</a>';
+              $("#product-options-wrapper").remove();
+              $("#product-addtocart-button").remove();
+              $('.box-tocart .actions').html(closeButton);
+            });
+            </script>
+            <?php }
+        }
+    } else {
+        if ($callForPriceAttribute['call_for_price']) { ?>
+          <script>
+           var label = '<?=$escaper->escapeHtml($label);?>';
+          var url   ='<?=$escaper->escapeUrl($link); ?>';
+          require([
+          "jquery",
+          ], function($){
+            var closeButton = '<a href="'+url+'" class="action primary tocart" title="'+label+'">'+label+'</a>';
+            $("#product-options-wrapper").remove();
+            $("#product-addtocart-button").remove();
+            $('.box-tocart .actions').html(closeButton);
+          });
+          </script>
+            <?php } else { ?>
+            <script>
+            var label = '<?= $escaper->escapeHtml($block->getLabel()); ?>';
+            var url ='<?= $escaper->escapeUrl($url); ?>';
+            require([
+            "jquery",
+            ], function($){
+              var closeButton = '<a href="'+url+'" class="action primary tocart" title="'+label+'">'+label+'</a>';
+              $("#product-options-wrapper").remove();
+              $("#product-addtocart-button").remove();
+              $('.box-tocart .actions').html(closeButton);
+            });
+            </script>
+        <?php }
+    }
+} else {
+    if ($block->isStoreAvilable()) {
+        if (!$block->isCustomerLoggedIn() || !in_array($block->getCustomerGroupId(), explode(',', $block->getGroupLists()))) {
+            if ($block->isCustomerLoggedIn() && !in_array($block->getCustomerGroupId(), explode(',', $block->getGroupLists()))) { ?>
+            <script>
+              require([
+              "jquery",
+              'Magento_Customer/js/customer-data'
+              ], function($, customer){
+                $.ajax({
+                    url:"<?= $escaper->escapeUrl($showWarningsForUnauthGroupUrl)?>",
+                    success: function ($data) {
+                      customer.reload('customer')
+                    }
+                });
+              });
+          </script>
+                <?php if ($isCallForPriceConfigSetting == 1) { ?>
+                    <script>
+                      var label = '<?= $escaper->escapeHtml($callForPriceConfigLabel); ?>';
+                      var url ='<?= $escaper->escapeUrl($callForPriceConfigLink); ?>';
+                      require([
+                      "jquery",
+                      ], function($){
+                        var closeButton = '<a href="'+url+'" class="action primary tocart" title="'+label+'">'+label+'</a>';
+                        $("#product-options-wrapper").remove();
+                        $("#product-addtocart-button").remove();
+                        $('.box-tocart .actions').html(closeButton);
+                      });
+                    </script>
+                <?php } else {
+                    $block->setRedirectReferer();
+                    $url = "#";
+                    ?>
+              <script>
+                var label = '<?= $escaper->escapeHtml($block->getLabel()); ?>';
+                var url ='<?= $escaper->escapeUrl($url); ?>';
+                require([
+                "jquery",
+                ], function($){
+                  style ='style="background: white;color: black;border: none;padding: 0 0;font-weight:400"';
+                  var closeButton = '<a href="'+url+'" class="action primary tocart" title="'+label+'"' +style+'">'+label+'</a>';
+                  $("#product-options-wrapper").remove();
+                  $("#product-addtocart-button").remove();
+                  $('.box-tocart .actions').html(closeButton);
+                });
+              </script>
+                    <?php
+                }
+            } else {
+                if ($isCallForPriceConfigSetting == 1) { ?>
+                    <script>
+                      var label = '<?= $escaper->escapeHtml($callForPriceConfigLabel); ?>';
+                      var url ='<?= $escaper->escapeUrl($callForPriceConfigLink); ?>';
+                      require([
+                      "jquery",
+                      ], function($){
+                        var closeButton = '<a href="'+url+'" class="action primary tocart" title="'+label+'">'+label+'</a>';
+                        $("#product-options-wrapper").remove();
+                        $("#product-addtocart-button").remove();
+                        $('.box-tocart .actions').html(closeButton);
+                      });
+                    </script>
+                <?php } else {
+                    ?>
+              <script>
+                var label = '<?= $escaper->escapeHtml($block->getLabel()); ?>';
+                var url ='<?= $escaper->escapeUrl($url); ?>';
+                require([
+                "jquery",
+                ], function($){
+                  var closeButton = '<a href="'+url+'" class="action primary tocart" title="'+label+'">'+label+'</a>';
+                  $("#product-options-wrapper").remove();
+                  $("#product-addtocart-button").remove();
+                  $('.box-tocart .actions').html(closeButton);
+                });
+              </script>
+                    <?php
+                }
+            }
+        }
+    }
+}
+?>

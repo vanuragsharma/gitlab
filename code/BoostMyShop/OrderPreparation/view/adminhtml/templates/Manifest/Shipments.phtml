@@ -1,0 +1,31 @@
+<?php $shipmentCollection = $block->getShipments();?>
+<table class="data-grid" style="margin-top: 3%;">
+    <thead>
+        <tr>
+            <th class="data-grid-th"><?php echo __('Select')?></th>
+            <th class="data-grid-th"><?php echo __('Shipment reference')?></th>
+            <th class="data-grid-th"><?php echo __('Shipment date')?></th>
+            <th class="data-grid-th"><?php echo __('Order')?></th>
+            <th class="data-grid-th"><?php echo __('Customer name')?></th>
+            <th class="data-grid-th"><?php echo __('Shipment weight')?></th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php if(count($shipmentCollection) == 0):?>
+    <tr class="data-grid-tr-no-data"><td class="empty-text" colspan="6"><?php echo __('We couldn\'t find any records.')?></td></tr>
+    <?php else:?>
+        <?php $i=0; foreach ($shipmentCollection as $shipmemt): ?>
+            <?php $trClass =($i % 2) ? 'data-row _odd-row':'data-row';?>
+            <tr class="<?php echo $trClass?>">
+                <td><input type="checkbox" name="shipment_ids[<?php echo $i?>]" value="<?php echo $shipmemt->getId()?>" checked/></td>
+                <td><?php echo $shipmemt->getIncrementId()?></td>
+                <td><?php echo $shipmemt->getcreated_at()?></td>
+                <td><?php echo $block->removePrefix($shipmemt->getorder_increment_id())?></td>
+                <td><?php echo $shipmemt->getcustomer_firstname().' '.$shipmemt->getcustomer_lastname()?></td>
+                <td><?php echo $shipmemt->gettotal_weight()?></td>
+            </tr>
+            <?php $i++;?>
+        <?php endforeach;?>
+    <?php endif;?>
+    </tbody>
+</table>

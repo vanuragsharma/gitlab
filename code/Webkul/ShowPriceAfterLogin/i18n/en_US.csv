@@ -1,0 +1,27 @@
+"Logged in customer group not allowed to View Price","Logged in customer group not allowed to View Price"
+"Please Login To View Price","Please Login To View Price"
+"Logged in user not allowed to view price","Logged in user not allowed to view price"
+Yes,Yes
+No,No
+"General Configuration","General Configuration"
+"Product Configuration","Product Configuration"
+"Login customer not allowed to purchase %1 items!","Login customer not allowed to purchase %1 items!"
+"Please login to purchase items","Please login to purchase items"
+"Login customer not allowed to purchase items!","Login customer not allowed to purchase items!"
+"Your %1 item(s) are moved to Wishlist!","Your %1 item(s) are moved to Wishlist!"
+Enabled,Enabled
+"Allowed Customer Groups","Allowed Customer Groups"
+"Add to Cart Label","Add to Cart Label"
+Title,Title
+"Redirect URL","Redirect URL"
+"Not allowed to view price","Not allowed to view price"
+Webkul,Webkul
+"Show Price After Login","Show Price After Login"
+"General Settings","General Settings"
+"Enabled Category(s) Setting for All User","Enabled Category(s) Setting for All User"
+"Allowed Category(s) for All User","Allowed Category(s) for All User"
+"product price will be shown to all allowed categorie's products","product price will be shown to all allowed categorie's products"
+"label for add to cart button","label for add to cart button"
+"relative url or full url starting with http or https","relative url or full url starting with http or https"
+"Configuration Priority","Configuration Priority"
+"Set Configuration Priority","Set Configuration Priority"

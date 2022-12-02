@@ -1,0 +1,42 @@
+<?php
+ /**
+  * Webkul Software.
+  *
+  * @category  Webkul
+  * @package   Webkul_ShowPriceAfterLogin
+  * @author    Webkul Software Private Limited
+  * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+  * @license   https://store.webkul.com/license.html
+  */
+?>
+<?php
+$productId = $block->getProductItem()->getId();
+$helper = $block->getHelper();
+$priority = $helper->configPriority();
+$individualProductSetting = $helper->getProductShowPriceAfterLoginData($productId);
+$isDisplay = $helper->checkPriceEnableAtWish($productId);
+$isAllowedCustomerGroups = $helper->isAllowedCustomerGroups();
+if (!$helper->storeAvilability()) { ?>
+    <?php foreach ($block->getChildNames() as $childName): ?>
+        <?= /*@noEscape*/$block->getLayout()->renderElement($childName, false) ?>
+    <?php endforeach;?>
+<?php }
+if ($priority == 'product_configuration' &&
+    (isset($individualProductSetting['show_price']) &&
+    $individualProductSetting['show_price'] == 1)
+    ) {
+        $isAllowedCustomerGroupsForIndPro = $helper->isAllowedCustomerGroupsForParticularProduct(
+            $individualProductSetting['show_price_customer_group']
+        );
+    if ($isDisplay || $isAllowedCustomerGroupsForIndPro) { ?>
+            <?php foreach ($block->getChildNames() as $childName): ?>
+                <?=/*@noEscape*/ $block->getLayout()->renderElement($childName, false) ?>
+            <?php endforeach;?>
+        <?php } ?>
+<?php } else {
+    if ($isDisplay || $isAllowedCustomerGroups) { ?>
+        <?php foreach ($block->getChildNames() as $childName): ?>
+            <?= /*@noEscape*/ $block->getLayout()->renderElement($childName, false) ?>
+        <?php endforeach;?>
+    <?php } ?>
+<?php } ?>

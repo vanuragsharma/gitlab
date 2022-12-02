@@ -1,0 +1,31 @@
+<!--@subject {{var company_name}} - Purchase order notification @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting">Hello {{var sup_contact}}</p>
+
+<p>Please find below the details of the purchase orders</p>
+
+{{if show_pdf_link}}
+<p>You can download the <a href="{{var pdf_url}}">purchase order PDF</a></p>
+{{/if}}
+
+{{if show_file_link}}
+<p>You can download the <a href="{{var file_url}}">csv/xml file</a></p>
+{{/if}}
+
+<p><strong>Purchase Orders :</strong></p>
+
+<table border="1" width="100%" cellpadding="10">
+    <tr>
+        <th>Reference</th>
+        <th>Date</th>
+        <th>Type</th>
+    </tr>
+{{layout area="frontend" handle="email_purchase_order_delay_notification" orders=$orders}}
+</table>
+
+<p>&nbsp;</p>
+<p>Best regards</p>
+
+<p alig="right">{{var manager_fullname}}</p>

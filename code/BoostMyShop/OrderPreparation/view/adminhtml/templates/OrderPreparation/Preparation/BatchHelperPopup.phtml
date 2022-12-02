@@ -1,0 +1,72 @@
+<?php $batchHelper = $this->getBatchHelper();?>
+<script>
+    function clickAndDisable(link) {
+        link.onclick = function(event) {
+            event.preventDefault();
+        }
+    }
+</script>
+<table class="data-grid" id="batch_helper">
+    <thead>
+    <tr>
+        <th class="data-grid-th"><span>#</span></th>
+        <?php foreach ($batchHelper->getTypes() as $typeC => $typeN): ?>
+            <th class="data-grid-th"><span><?php echo $typeN;?></span></th>
+        <?php endforeach; ?>
+        <th class="data-grid-th"><span><?php echo __("All Types");?></span></th>
+    </tr>
+    </thead>
+    <?php $i = 0;?>
+    <?php foreach ($batchHelper->getCarriers($this->getCurrentWarehouseId()) as $key => $carrier): ?>
+        <tbody>
+        <tr class="<?php echo $i%2 == 0?'even':''?>">
+            <th style="background: #00abeb;" class="data-grid-th"><span><?php echo $carrier;?></span></th>
+            <?php foreach ($batchHelper->getTypes() as $typeC => $typeN):?>
+                <td>
+                <?php if($typeC == \BoostMyShop\OrderPreparation\Model\Batch\Type\UniqueProduct::CODE && $batchHelper->getTypeInstance($typeC)):?>
+                    <?php $uniqueData = $this->getUniqueSkus($batchHelper->getTypeInstance($typeC)->getCandidateOrders($this->getCurrentWarehouseId(), $key));?>
+                    <?php foreach ($uniqueData as $productId => $data):?>
+                        <span><a style="display: block;" href="<?php echo $this->getcellUrlByProductId($productId, $typeC, $key); ?>"><?php echo $data['sku'].': '.$data['qty'] ?></a></span>
+                    <?php endforeach;?>
+                <?php else:?>
+                    <?php $count = $batchHelper->getTypeInstance($typeC)? $batchHelper->getTypeInstance($typeC)->getCandidateOrderCount($this->getCurrentWarehouseId(), $key): 0; ?>
+                        <a style="display: block;" href="<?php echo $this->getCellUrl($typeC, $key); ?>" onclick="clickAndDisable(this);">
+                            <?php echo $count;?>
+                        </a>
+                <?php endif;?>
+                </td>
+            <?php endforeach; ?>
+            <td>
+                <?php $count = $batchHelper->getTypeInstance($typeC)? count($batchHelper->getTypeInstance($typeC)->getCandidateOrdersForAllInstance($this->getCurrentWarehouseId(), $key)) : 0;?>
+                <a style="display: block;" href="<?php echo $this->getCellUrl(\BoostMyShop\OrderPreparation\Model\Batch\Type\AllProduct::CODE, $key); ?>" onclick="clickAndDisable(this);">
+                    <?php echo $count;?>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+        <?php $i++; endforeach; ?>
+    <tr class="<?php echo $i%2 == 0?'even':''?>">
+        <th style="background: #00abeb;" class="data-grid-th"><span><?php echo __("All carriers");?></span></th>
+        <?php foreach ($batchHelper->getTypes() as $typeC => $typeN): ?>
+            <td>
+            <?php if($typeC == \BoostMyShop\OrderPreparation\Model\Batch\Type\UniqueProduct::CODE && $batchHelper->getTypeInstance($typeC)):?>
+                <?php $uniqueData = $this->getUniqueSkus($batchHelper->getTypeInstance($typeC)->getCandidateOrders($this->getCurrentWarehouseId()));?>
+                 <?php foreach ($uniqueData as $productId => $data):?>
+                    <span><a style="display: block;" href="<?php echo $this->getcellUrlByProductId($productId, $typeC); ?>"><?php echo $data['sku'].': '.$data['qty'] ?></a></span>
+                <?php endforeach;?>
+            <?php else:?>
+                <?php $count = $batchHelper->getTypeInstance($typeC)? count($batchHelper->getTypeInstance($typeC)->getCandidateOrders($this->getCurrentWarehouseId())): 0; ?>
+                    <a style="display: block;" href="<?php echo $this->getCellUrl($typeC); ?>" onclick="clickAndDisable(this);">
+                        <?php echo $count;?>
+                    </a>
+            <?php endif;?>
+            </td>
+        <?php endforeach; ?>
+        <td>
+            <?php $count = $batchHelper->getTypeInstance($typeC)? count($batchHelper->getTypeInstance($typeC)->getCandidateOrdersForAllInstance($this->getCurrentWarehouseId())) : 0; ?>
+            <a style="display: block;" href="<?php echo $this->getCellUrl(\BoostMyShop\OrderPreparation\Model\Batch\Type\AllProduct::CODE); ?>" onclick="clickAndDisable(this);">
+                <?php echo $count;?>
+            </a>
+        </td>
+    </tr>
+</table>

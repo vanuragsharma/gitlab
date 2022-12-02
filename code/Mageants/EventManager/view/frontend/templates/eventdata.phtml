@@ -1,0 +1,241 @@
+<style>
+    
+.event-toolbar {
+    margin-bottom: 40px;
+    text-align: center;
+    padding: 20px;
+    background: #f0f0f0 !important;
+    border-radius: 1px !important;
+    width: 100% !important;
+}
+.eventsmanager-index-index .product-item-info {
+    width: 100%;
+}
+.product-items .product-item-info .event-name {
+    width: 100%;
+    background: #f0f0f0;
+    padding: 18px 15px;
+}
+.product-item-name {
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    -webkit-hyphens: auto;
+    display: block;
+    hyphens: auto;
+    margin: 5px 0;
+    word-wrap: break-word;
+}
+.product-item {
+    font-size: 1.4rem;
+    line-height: normal;
+    letter-spacing: normal;
+    vertical-align: top;
+}
+.product-items .product-item-info .product-item-details {
+    width: 100%;
+    padding: 10px;
+}
+.eventbottom-toolbar {
+    margin-bottom: 0px;
+    box-sizing: border-box;
+    padding: 8px 15px;
+    background: #f0f0f0;
+    border-radius: 1px;
+    margin-top: 70px;
+}
+.order-products-toolbar, .customer-addresses-toolbar {
+    position: relative;
+}
+.modes-mode:not(.active):hover {
+    color: #7d7d7d;
+    background: #dedede;
+}
+.modes-mode:last-child {
+    /* border-radius: 0 3px 3px 0; */
+    /* border-right: 1px solid #ccc; */
+}
+.modes-mode:hover {
+    color: #5e5e5e;
+    background: #ebebeb;
+}
+.modes-mode:last-child {
+    border-right: 1px solid #ccc;
+}
+.modes-mode {
+    background-color: #f0f0f0;
+    box-shadow: inset 0 1px 0 0 #fff,inset 0 -1px 0 0 rgba(204,204,204,0.3);
+    color: #5e5e5e;
+    border: 1px solid #ccc;
+    border-right: 0;
+    float: left;
+    font-weight: 400;
+    line-height: 1;
+    /* padding: 7px 10px; */
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+}
+.modes-mode:before {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
+    line-height: inherit;
+    color: #7d7d7d;
+    font-family: 'luma-icons';
+    vertical-align: middle;
+    display: inline-block;
+    font-weight: normal;
+    overflow: hidden;
+    speak: none;
+    text-align: center;
+}
+.toolbar select {
+    cursor: pointer;
+    border: none;
+    width: auto;
+    font-size: 13px;
+    color: #878787;
+    height: 40px;
+    /* line-height: 44px; */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* padding: 0 30px 0 15px; */
+    /* width: 100%; */
+    background: #fff !important; 
+    box-shadow: none;
+}
+.product-items .product-item-info .product-item-details p span {
+    font-weight: 700;
+}
+.toolbar .modes>strong.modes-label{
+    display:none !important;
+}
+</style>    
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+use Magento\Framework\App\Action\Action;
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ */
+?>
+<?php
+$eventdataCollection =$this->getEventCollection();
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+?>
+<?php if (!$eventdataCollection->count()): ?>
+    <div class="message info empty"><div>
+        
+        <?php echo $this->helper('Mageants\EventManager\Helper\Data')->getConfigValue('event/configrationevent/errormsg'); 
+         ?> 
+        </div>
+    </div>
+<?php else: ?>
+    <?= $block->getToolbarHtml() ?>
+    <?= $block->getAdditionalHtml() ?>
+    <?php
+
+   if ($block->getMode() == 'grid') {
+        $viewMode = 'grid';
+        $imageDisplayArea = 'category_page_grid';
+        $showDescription = false;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+    } elseif ($block->getMode() == 'list') {
+        $viewMode = 'list';
+        $imageDisplayArea = 'category_page_list';
+        $showDescription = true;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
+    }else{
+        $viewMode = 'calender';
+        $imageDisplayArea = 'category_page_list';
+        $showDescription = true;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
+    }
+    /**
+     * Position for actions regarding image size changing in vde if needed
+     */
+    $pos = $block->getPositioned();
+    ?>
+    <div class="products wrapper <?= /* @escapeNotVerified */ $viewMode ?> products-<?= /* @escapeNotVerified */ $viewMode ?>">
+        <ol class="products list items product-items row">
+            <?php /** @var $eventdata \Mageants\EventManager\Model\Eventdata */ ?>
+            <?php foreach ($eventdataCollection as $eventdata):?>
+
+            <li class="item product product-item col-md-4">
+                <div class="product-item-info" data-container="product-<?= /* @escapeNotVerified */ $viewMode ?>">
+                    <?php
+                            $_productNameStripped = $block->stripTags($eventdata->getEventTitle(), null, true);
+
+                        ?>
+                        <strong class="product name product-item-name event-name">
+                            <a href="<?php echo $block->getBaseUrl().'eventsmanager/index/view/id/'.$eventdata->getUrlprefix().'.html';?>">
+                                <?php echo $eventdata->getEventTitle(); ?>
+
+                            </a>
+                        </strong>
+                    <?php
+                    $img1=$eventdata['thumbnail_image'];
+                    if(!$img1){
+                        $placeholderUrl = $block->getPlaceHolderImage();?>
+                        <a href="<?php echo $block->getBaseUrl().'eventsmanager/index/view/id/'.$eventdata->getUrlprefix().'.html';?>">
+                        <?php $plcimg = '<img width="100%" style="height:240px !important;" src='.$placeholderUrl. ' >'; echo $plcimg; ?>
+                        </a>
+                        
+                    <?php } else {
+                    $img1=explode(',', $eventdata['thumbnail_image']);
+                    foreach ($img1 as $key => $value) {   
+                    $eventImage = $this->getMediaUrl().'eventmanager/tmp/image/'.$value;
+
+                    }?>
+                    
+                    <a href="<?php echo $block->getBaseUrl().'eventsmanager/index/view/id/'.$eventdata->getUrlprefix().'.html';?>">
+                        <img width="100%" style="height:240px !important;" class="product-image" src="<?php echo $eventImage; ?>">
+                    
+                    </a>
+                    
+                    <?php }?>  
+                    <div class="product details product-item-details">
+                        <p>
+                            <span>From: </span><?php echo $eventdata->getStartDate(); ?><br>
+                            <span>To: </span><?php echo $eventdata->getEndDate(); ?><br>
+                            <span>Venue: </span><?php echo $eventdata->getVenue(); ?>
+                        </p>
+                        
+
+                        <div class="product-item-inner">
+                            
+                            <?php if ($showDescription):?>
+                                <div class="product description product-item-description">
+                                    <?php echo $eventdata->getDescription(); ?>
+                                    <a href="<?php echo $block->getBaseUrl().'eventsmanager/index/view/id/'.$eventdata->getUrlprefix();?>" 
+                                        class="action more"><?= /* @escapeNotVerified */ __('Learn More') ?></a>
+                                </div>
+                            <?php endif; ?>
+                            <?php if($showDescription == false): ?>
+                                <div class="product description product-item-description">
+                                    <a href="<?php echo $block->getBaseUrl().'eventsmanager/index/view/id/'.$eventdata->getUrlprefix().'.html';?>" 
+                                        class="action more"><?= /* @escapeNotVerified */ __('Learn More') ?></a>
+                                </div>
+                            <?php endif;?>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <?php endforeach; ?>
+        </ol>
+    </div>
+     <?php if ($block->getPagerHtml()): ?>
+        <div class="order-products-toolbar toolbar bottom eventbottom-toolbar"><?php echo $block->getPagerHtml(); ?></div>
+    <?php endif ?>
+   
+    
+<?php endif; ?>

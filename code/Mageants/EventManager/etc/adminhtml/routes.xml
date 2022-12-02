@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!-- /**
+ * @category Mageants EventManager
+ * @package Mageants_EventManager
+ * @copyright Copyright (c) 2019 Mageants
+ * @author Mageants Team <support@mageants.com>
+ */ --> 
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="admin">
+        <route id="event" frontName="event">
+            <module name="Mageants_EventManager" />
+        </route>
+    </router>
+</config>

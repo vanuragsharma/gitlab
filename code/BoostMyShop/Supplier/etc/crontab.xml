@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+
+    <!-- Disabled, use cron integration instead
+    <group id="default">
+        <job name="bms_supplier_mass_notification" instance="BoostMyShop\Supplier\Cron\MassNotification" method="execute">
+            <schedule>30 * * * *</schedule>
+        </job>
+    </group>
+    -->
+
+</config>

@@ -1,0 +1,32 @@
+<?php if($this->isBatchEnable()): ?>
+    <?php echo __('Current batch :'); ?>&nbsp;&nbsp;&nbsp;
+    <select id="select-batch">
+        <option>-- <?php echo __('select'); ?> --</option>
+        <?php foreach($this->getActiveBatches() as $batch): ?>
+            <option value="<?php echo $batch->getId(); ?>" <?php echo ($batch->getId() == $this->getCurrentBatch()->getId() ? ' selected ' : ''); ?>><?php echo $batch->getLabel(); ?></option>
+        <?php endforeach; ?>
+    </select>
+    &nbsp;&nbsp;&nbsp;
+<?php endif; ?>
+<?php echo __('Order to pack :'); ?>&nbsp;&nbsp;&nbsp;
+<select id="select-order">
+    <option>-- <?php echo __('select'); ?> --</option>
+    <?php foreach($this->getOrdersInProgress() as $orderInProgress): ?>
+        <option value="<?php echo $orderInProgress->getId(); ?>" <?php echo ($orderInProgress->getId() == $this->currentOrderInProgress()->getId() ? ' selected ' : ''); ?>><?php echo $orderInProgress->getLabel(); ?></option>
+    <?php endforeach; ?>
+</select>
+
+<script>
+    var packingObj;
+    var autoDownloadUrls;
+    require(["orderpreparation_packing"], function(packing){
+        packingObj = packing.init('<?php echo $this->getSelectOrderByIdUrl(); ?>', <?php echo $this->getItemIdsAsJson(); ?>, <?php echo $this->getOrdersAsJson(); ?>, '<?php echo $this->getMode(); ?>', autoDownloadUrls, <?php echo $this->getAllowPartialPacking(); ?>, '<?php echo $this->getSaveItemUrl(); ?>', '<?php echo $this->getItemCustomOptionsFormUrl(); ?>', '<?php echo $this->getPackOrderByProducBarcode(); ?>', '<?php echo $this->getLargeOrderMode(); ?>', '<?php echo $this->getSelectBatchByIdUrl(); ?>', '<?php echo $this->isBatchEnable()?1:0; ?>', <?php echo $this->getBatchAsJson(); ?>, '<?php echo $this->getAutoCommit(); ?>');
+        packingObj.waitForScan();
+
+    });
+</script>
+
+<audio id="audio_nok" src="<?php echo $this->getViewFileUrl('BoostMyShop_OrderPreparation::sound/wrong.mp3'); ?>" ></audio>
+<audio id="audio_ok" src="<?php echo $this->getViewFileUrl('BoostMyShop_OrderPreparation::sound/correct.mp3'); ?>" ></audio>
+
+<div style="display: none;" id="iframe-container"></div>

@@ -1,0 +1,49 @@
+
+
+<table class="tbl-order">
+
+    <tr>
+        <th><?php echo __('Carrier'); ?></th>
+        <th><?php echo __('Method'); ?></th>
+        <th><?php echo __('Price'); ?></th>
+        <th><?php echo __('Estimated date of delivery'); ?></th>
+    </tr>
+
+    <?php foreach($block->getRates() as $templateCode => $ratesResult): ?>
+
+        <?php if (count($ratesResult['rates']) > 0): ?>
+            <?php $isFirst = true; ?>
+            <?php foreach($ratesResult['rates'] as $rate): ?>
+                <tr align="right" style="background-color: <?php echo $isFirst ? ' #96FF69 ' : ''; ?>">
+                    <td><?php echo $templateCode; ?></td>
+                    <td>
+                        <?php if (isset($rate['mapped_method']) && $rate['mapped_method']): ?>
+                            <a href="<?php echo $this->getChangeShippingMethodUrl($rate['mapped_method']); ?>">
+                        <?php endif; ?>
+                        <?php echo $rate['label']; ?> (<?php echo $rate['method']; ?>)
+                        <?php if (isset($rate['mapped_method']) && $rate['mapped_method']): ?>
+                            </a>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php echo number_format($rate['price'], 2, '.', ''); ?>
+                    </td>
+                    <td align="center"><?php echo $rate['etd']; ?></td>
+                </tr>
+                <?php $isFirst = false; ?>
+            <?php endforeach; ?>
+
+        <?php else: ?>
+
+            <tr>
+                <td><?php echo $templateCode; ?></td>
+                <td colspan="3">
+                    <?php echo (!$ratesResult['success'] ? $ratesResult['message'] : __('No rates available')); ?>
+                </td>
+            </tr>
+
+        <?php endif; ?>
+
+    <?php endforeach; ?>
+
+</table>

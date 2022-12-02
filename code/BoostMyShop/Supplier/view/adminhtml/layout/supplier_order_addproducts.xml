@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <container name="root" label="Root">
+            <container name="addProductsGrid" label="Left" htmlTag="div" htmlId="addProductsGrid">
+                <block class="BoostMyShop\Supplier\Block\Order\Edit\Tab\AddProductsGrid" name="supplier.order.addproducts.grid"/>
+            </container>
+            <container name="addProductsSelected" label="Right" htmlTag="div" htmlId="addProductsSelected">
+                <block class="BoostMyShop\Supplier\Block\Order\Edit\Tab\AddProductsSelected" name="supplier.order.addproducts.selected"/>
+            </container>
+        </container>
+    </body>
+</page>

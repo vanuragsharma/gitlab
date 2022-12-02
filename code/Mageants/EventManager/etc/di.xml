@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!-- /**
+ * @category Mageants EventManager
+ * @package Mageants_EventManager
+ * @copyright Copyright (c) 2019 Mageants
+ * @author Mageants Team <support@mageants.com>
+ */ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+            <preference for="Magento\Catalog\Model\Config\Source\ListMode" type="Mageants\EventManager\Model\Config\Source\ListMode" /> 
+                     
+    <virtualType name="Mageants\EventManager\Model\ResourceModel\Eventdata\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">event_data</argument>
+            <argument name="resourceModel" xsi:type="string">Mageants\EventManager\Model\ResourceModel\Eventdata</argument>
+        </arguments>
+    </virtualType>
+ 
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="event_data_data_source" xsi:type="string">
+                Mageants\EventManager\Model\ResourceModel\Eventdata\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Mageants\EventManager\Model\ImageUploader">
+    <arguments>
+        <argument name="baseTmpPath" xsi:type="string">eventmanager/tmp/image</argument>
+        <argument name="basePath" xsi:type="string">eventmanager/image</argument>
+        <argument name="allowedExtensions" xsi:type="array">
+            <item name="jpg" xsi:type="string">jpg</item>
+            <item name="jpeg" xsi:type="string">jpeg</item>
+            <item name="gif" xsi:type="string">gif</item>
+            <item name="png" xsi:type="string">png</item>
+        </argument>
+    </arguments>
+</type>
+ 
+</config>

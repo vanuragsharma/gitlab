@@ -1,0 +1,246 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+
+        <tab id="boostmyshop" translate="label" sortOrder="0">
+            <label>BoostMyShop</label>
+        </tab>
+
+        <section id="availabilitystatus" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Product Availability Status</label>
+            <tab>boostmyshop</tab>
+            <resource>BoostMyShop_AvailabilityStatus::Config</resource>
+
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+
+                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Displays advanced availability message on storefront. If you enable it, it is recommended to disable regular Magento availability message in store > configuration > catalog > inventory > Display Products Availability in Stock on Storefront</comment>
+                </field>
+
+                <field id="enable_logs" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Logs</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+            </group>
+
+            <group id="instock" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>In stock</label>
+
+                <field id="label" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Label</label>
+                    <comment>Message to display when the product is in stock</comment>
+                </field>
+
+                <field id="css" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>CSS Class</label>
+                    <comment>CSS class to use to decorate message</comment>
+                </field>
+
+                <field id="use_warehouse_delay" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Use warehouse delay</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If enabled, you can specify a delay at the warehouse level, then the availability message will consider this delay</comment>
+                </field>
+
+                <field id="warehouse_delay_ranges" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ranges for warehouse delay</label>
+                    <frontend_model>BoostMyShop\AvailabilityStatus\Block\Adminhtml\System\Config\WarehouseDelayRanges</frontend_model>
+                    <depends>
+                        <field id="availabilitystatus/instock/use_warehouse_delay">1</field>
+                    </depends>
+                </field>
+
+            </group>
+
+            <group id="backorder" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Back order</label>
+
+                <field id="use_po" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Use expected PO ETA</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="po_label" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Expected PO label</label>
+                    <comment>Message to display when a PO is expected, you can use codes {d} {m] {y} to include day / month / year in the message</comment>
+                </field>
+
+                <field id="use_lead_time" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Use supplier lead time</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="lead_time_ranges" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ranges for lead time</label>
+                    <frontend_model>BoostMyShop\AvailabilityStatus\Block\Adminhtml\System\Config\LeadTimeRanges</frontend_model>
+                </field>
+
+                <!--Ranges (Magento 2.3.2 compatibility-->
+                <field id="from_0" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_from_0</label>
+                </field>
+
+                <field id="to_0" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_to_0</label>
+                </field>
+
+                <field id="message_0" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_message_0</label>
+                </field>
+
+                <field id="from_1" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_from_1</label>
+                </field>
+
+                <field id="to_1" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_to_1</label>
+                </field>
+
+                <field id="message_1" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_message_1</label>
+                </field>
+
+                <field id="from_2" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_from_2</label>
+                </field>
+
+                <field id="to_2" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_to_2</label>
+                </field>
+
+                <field id="message_2" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_message_2</label>
+                </field>
+
+                <field id="from_3" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_from_3</label>
+                </field>
+
+                <field id="to_3" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_to_3</label>
+                </field>
+
+                <field id="message_3" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_message_3</label>
+                </field>
+
+                <field id="from_4" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_from_4</label>
+                </field>
+
+                <field id="to_4" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_to_4</label>
+                </field>
+
+                <field id="message_4" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_message_4</label>
+                </field>
+
+                <field id="from_5" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_from_5</label>
+                </field>
+
+                <field id="to_5" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_to_5</label>
+                </field>
+
+                <field id="message_5" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_message_5</label>
+                </field>
+
+                <field id="from_6" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_from_6</label>
+                </field>
+
+                <field id="to_6" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_to_6</label>
+                </field>
+
+                <field id="message_6" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_message_6</label>
+                </field>
+
+                <field id="from_7" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_from_7</label>
+                </field>
+
+                <field id="to_7" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_to_7</label>
+                </field>
+
+                <field id="message_7" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_message_7</label>
+                </field>
+
+                <field id="from_8" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_from_8</label>
+                </field>
+
+                <field id="to_8" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_to_8</label>
+                </field>
+
+                <field id="message_8" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_message_8</label>
+                </field>
+
+                <field id="from_9" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_from_9</label>
+                </field>
+
+                <field id="to_9" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_to_9</label>
+                </field>
+
+                <field id="message_9" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>backorder_message_9</label>
+                </field>
+                
+                <field id="label" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Label</label>
+                    <comment>Used if no PO or lead time range found</comment>
+                </field>
+
+                <field id="css" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>CSS Class</label>
+                    <comment>CSS class to use to decorate message</comment>
+                </field>
+
+            </group>
+
+            <group id="outofstock" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Out of stock</label>
+
+                <field id="label" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Label</label>
+                    <comment>Message to display when the product is out of stock (and not sellable)</comment>
+                </field>
+
+                <field id="use_po" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Use expected PO ETA</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="po_label" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Expected PO label</label>
+                    <comment>Message to display when a PO is expected, you can use codes {d} {m] {y} to include day / month / year in the message</comment>
+                </field>
+
+
+                <field id="css" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>CSS Class</label>
+                    <comment>CSS class to use to decorate message</comment>
+                </field>
+
+            </group>
+
+        </section>
+
+
+
+    </system>
+</config>

@@ -1,0 +1,24 @@
+<div class="page-main-actions">
+    <div data-mage-init='{"floatingHeader": {}}' class="page-actions"  data-ui-id="page-actions-toolbar-content-header" >
+        <button id="back" title="Back" type="button" class="action-default scalable back" onclick="setLocation('<?php echo $this->getBackUrl(); ?>')"  data-ui-id="adminhtml-order-edit-back-button" >
+            <span><?php echo __('Back'); ?></span>
+        </button>
+    </div>
+</div>
+
+
+<h2>Success</h2>
+
+<ul style="margin-left: 50px;">
+    <?php foreach($this->getImportResult()['success'] as $item): ?>
+        <li><?php echo $item; ?></li>
+    <?php endforeach; ?>
+</ul>
+
+<h2>Errors</h2>
+
+<ul style="margin-left: 50px;">
+    <?php foreach($this->getImportResult()['errors'] as $item): ?>
+        <li><?php echo $item; ?></li>
+    <?php endforeach; ?>
+</ul>

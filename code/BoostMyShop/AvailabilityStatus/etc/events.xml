@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+
+    <event name="bms_advancedstock_warehouse_edit_tabs">
+        <observer name="bms_erpavailabilitystatus_advancedstock_warehouse_edit_tabs" instance="BoostMyShop\AvailabilityStatus\Observer\WarehouseEditTabs"/>
+    </event>
+
+</config>

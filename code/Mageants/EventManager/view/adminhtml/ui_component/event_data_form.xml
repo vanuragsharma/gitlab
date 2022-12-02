@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- /**
+* @category Mageants EventManager
+* @package Mageants_EventManager
+* @copyright Copyright (c) 2019 Mageants
+* @author Mageants Team <support@mageants.com>
+*/ -->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">event_data_form.event_data_data_source</item>
+            <item name="deps" xsi:type="string">event_data_form.event_data_data_source</item>
+        </item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">event_data_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+
+       <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Mageants\EventManager\Block\Adminhtml\Data\Edit\BackButton</item>
+            <item name="delete" xsi:type="string">Mageants\EventManager\Block\Adminhtml\Data\Edit\DeleteButton</item>
+            <item name="reset" xsi:type="string">Mageants\EventManager\Block\Adminhtml\Data\Edit\ResetButton</item>
+            <item name="save" xsi:type="string">Mageants\EventManager\Block\Adminhtml\Data\Edit\SaveButton</item>
+            <item name="save_and_continue" xsi:type="string">Mageants\EventManager\Block\Adminhtml\Data\Edit\SaveAndContinuteButton</item>
+            
+        </item>
+    </argument>
+
+    <dataSource name="event_data_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Mageants\EventManager\Model\Eventdata\DataProvider</argument>
+            <argument name="name" xsi:type="string">event_data_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">e_id</argument>
+            <argument name="requestFieldName" xsi:type="string">e_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="event/data/save"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+
+    <fieldset name="GeneralForm">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="collapsible" xsi:type="boolean">false</item>
+                <item name="label" xsi:type="string" translate="true">General Form</item>
+                <item name="sortOrder" xsi:type="number">10</item>
+            </item>
+        </argument>
+        <field name="status">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">int</item>
+                    <item name="label" xsi:type="string" translate="true">Status</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">Evendata</item>
+                    <item name="dataScope" xsi:type="string">status</item>
+                    <item name="default" xsi:type="string">0</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+         </argument>
+        </field>
+
+        <field name="event_title">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Event Title</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="dataScope" xsi:type="string">event_title</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                         <!-- <item name="alphanumeric" xsi:type="boolean">true</item> -->
+                        <item name="max_text_length" xsi:type="number">100</item>
+                    </item>
+                    <item name="source" xsi:type="string">Evendata</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="venue">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Event Venue</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="dataScope" xsi:type="string">venue</item>
+                    <item name="source" xsi:type="string">Evendata</item>
+                    <item name="validation" xsi:type="array">
+                        <!-- <item name="validate-alpha" xsi:type="boolean">true</item> -->
+                        <item name="max_text_length" xsi:type="number">30</item>
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="color">
+          <argument name="data" xsi:type="array">
+            <item name="options" xsi:type="object">Mageants\EventManager\Model\Config\Source\Selectcolor</item>
+            <item name="config" xsi:type="array">                    
+                <item name="dataType" xsi:type="string">text</item>
+                <item name="formElement" xsi:type="string">select</item>
+                <item name="label" xsi:type="string" translate="true">Color</item>
+                <item name="source" xsi:type="string">Evendata</item>
+                <item name="dataScope" xsi:type="string">color</item>
+                <item name="default" xsi:type="string">0</item>
+                <item name="validation" xsi:type="array">
+                    <item name="required-entry" xsi:type="boolean">true</item>
+                </item>
+
+            </item>
+        </argument>
+     </field> 
+
+        <field name="start_date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="label" xsi:type="string" translate="true">Start Date</item>
+                    <item name="formElement" xsi:type="string">date</item>
+                    <item name="source" xsi:type="string">page</item>
+                    <item name="dataScope" xsi:type="string">start_date</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="options" xsi:type="array">
+                        <item name="dateFormat" xsi:type="string">dd/mm/yyyy</item>
+                        <item name="timeFormat" xsi:type="string">HH:mm:ss</item>
+                        <item name="showsTime" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="end_date" >
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="label" xsi:type="string" translate="true">End Date</item>
+                    <item name="formElement" xsi:type="string">date</item>
+                    <item name="source" xsi:type="string">page</item>
+                    <item name="dataScope" xsi:type="string">end_date</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="options" xsi:type="array">
+                        <item name="dateFormat" xsi:type="string">dd/mm/yyyy</item>
+                        <item name="timeFormat" xsi:type="string">HH:mm:ss</item>
+                        <item name="showsTime" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="urlprefix">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string">Url Prefix</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="dataScope" xsi:type="string">urlprefix</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="source" xsi:type="string">Evendata</item>
+                </item>
+            </argument>
+        </field>
+        <field name="youtubeurl">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string">Youtube Video Url</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="dataScope" xsi:type="string">youtubeurl</item>
+                        <!-- <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                            <item name="validate-url" xsi:type="boolean">true</item>
+                        </item> -->
+                        <item name="source" xsi:type="string">Evendata</item>
+                    </item>
+                </argument>
+        </field>
+        <field name="description">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">wysiwyg</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="source" xsi:type="string">Evendata</item>
+                        <item name="label" xsi:type="string">Detail</item>
+                        <item name="template" xsi:type="string">ui/form/field</item>
+                        <item name="wysiwyg" xsi:type="boolean">true</item>
+                        <item name="dataScope" xsi:type="string">description</item>
+                        <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="rows" xsi:type="number">8</item>
+                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                        <item name="toggle_button" xsi:type="boolean">true</item>
+                        <item name="height" xsi:type="string">200px</item>
+                        <item name="add_variables" xsi:type="boolean">true</item>
+                        <item name="add_widgets" xsi:type="boolean">false</item>
+                        <item name="add_images" xsi:type="boolean">true</item>
+                        <item name="add_directives" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </argument>
+        </field>
+    </fieldset>
+    <fieldset name="Contact Information">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="label" xsi:type="string" translate="true">Contact Information</item>
+                <item name="sortOrder" xsi:type="number">30</item>
+                
+            </item>
+        </argument>
+
+        <field name="contactadmin">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Contact Person</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="dataScope" xsi:type="string">contactadmin</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">Evendata</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-alpha" xsi:type="boolean">true</item>
+                        <item name="max_text_length" xsi:type="number">25</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="phone">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Phone</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="dataScope" xsi:type="string">phone</item>
+                    <item name="validation" xsi:type="array">
+                      <!-- <item name="max_text_length" xsi:type="number">10</item>
+                      <item name="min_text_length" xsi:type="number">10</item> -->
+                      <item name="validate-number" xsi:type="boolean">true</item>
+                      <item name="validate-zero-or-greater" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">Evendata</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="fax">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Fax</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="dataScope" xsi:type="string">fax</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">Evendata</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-fax" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="email">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Email</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="dataScope" xsi:type="string">email</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-email" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">Evendata</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="address">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Address</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="dataScope" xsi:type="string">address</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">Evendata</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="max_text_length" xsi:type="number">100</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+     </fieldset>
+
+     <fieldset name="Meta Information">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="label" xsi:type="string" translate="true">Meta Information</item>
+                <item name="sortOrder" xsi:type="number">40</item>
+                
+            </item>
+        </argument>
+
+        <field name="pagetitle">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Page Title</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="dataScope" xsi:type="string">pagetitle</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">Evendata</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="keywords">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Keywords</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="dataScope" xsi:type="string">keywords</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">Evendata</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="seodescription">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Description</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="dataScope" xsi:type="string">seodescription</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">Evendata</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+
+    <fieldset name="Event In Websites">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="label" xsi:type="string" translate="true">Event In Websites</item>
+                <item name="sortOrder" xsi:type="number">50</item>
+                
+            </item>
+        </argument>
+
+        <field name="storeview">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Cms\Ui\Component\Listing\Column\Cms\Options</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">int</item>
+                    <item name="label" xsi:type="string" translate="true">Store View</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">Evendata</item>
+                    <item name="dataScope" xsi:type="string">storeview</item>
+                    <item name="default" xsi:type="string">0</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+         </argument>
+        </field>
+    </fieldset>
+
+    <fieldset name="Venue Markers">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="label" xsi:type="string" translate="true">Venue Markers</item>
+                <item name="sortOrder" xsi:type="number">60</item>
+            </item>
+        </argument>
+
+        <field name="latitude">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Latitude</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">Evendata</item>
+                    <item name="validation" xsi:type="array">
+                      <item name="validate-number" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="longitude">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Longitude</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">Evendata</item>
+                    <item name="notice" xsi:type="string" translate="true">Enter Event Location in Search Field, Drag the Marker to Populate the Latitude and Longitude in the Form Fields.</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-number" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+     </fieldset>
+     <fieldset name="productassign">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Event Tickets Options</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">80</item>
+            </item>
+        </argument>
+        <container name="product_assign_container" >
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">80</item>
+                </item>
+            </argument>
+            <htmlContent name="html_content">
+                <argument name="block" xsi:type="object">Mageants\EventManager\Block\Adminhtml\Data\Edit\AssignProducts</argument>
+            </htmlContent>
+        </container>
+    </fieldset>
+
+     <fieldset name="Gallery Images">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="label" xsi:type="string" translate="true">Gallery Images </item>
+                <item name="sortOrder" xsi:type="number">90</item>
+            </item>
+        </argument>
+        <field name="image">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataType" xsi:type="string">string</item>
+                        <item name="source" xsi:type="string">Evendata</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="formElement" xsi:type="string">fileUploader</item>
+                        <item name="isMultipleFiles" xsi:type="boolean">true</item>
+                        <item name="elementTmpl" xsi:type="string">ui/form/element/uploader/uploader</item>
+                         <item name="previewTmpl" xsi:type="string">Mageants_EventManager/image-preview</item>
+                        <item name="required" xsi:type="boolean">false</item>
+                        <item name="sortOrder" xsi:type="number">40</item>
+                        <item name="uploaderConfig" xsi:type="array">
+                            <item name="url" xsi:type="url" path="event/data/upload"/>
+                        </item>
+                    </item>
+                </argument>
+        </field> 
+     </fieldset> 
+      <fieldset name="Thumbnail Image">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="label" xsi:type="string" translate="true">Thumbnail Image </item>
+                <item name="sortOrder" xsi:type="number">100</item>
+            </item>
+        </argument>
+           <field name="thumbnail_image">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">string</item>
+                            <item name="source" xsi:type="string">Evendata</item>
+                            <item name="visible" xsi:type="boolean">true</item>
+                            <item name="formElement" xsi:type="string">fileUploader</item>
+                            <!-- <item name="isMultipleFiles" xsi:type="boolean">true</item> -->
+                            <item name="elementTmpl" xsi:type="string">ui/form/element/uploader/uploader</item>
+                             <item name="previewTmpl" xsi:type="string">Mageants_EventManager/image-preview</item>
+                            <item name="required" xsi:type="boolean">false</item>
+                            <item name="sortOrder" xsi:type="number">50</item>
+                            <item name="uploaderConfig" xsi:type="array">
+                                <item name="url" xsi:type="url" path="event/data/thumbnailimageupload"/>
+                            </item>
+                        </item>
+                    </argument>
+            </field>
+        </fieldset>
+</form>
+

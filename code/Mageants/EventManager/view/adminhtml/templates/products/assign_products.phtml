@@ -1,0 +1,22 @@
+<?php
+$blockGrid = $block->getBlockGrid();
+$test =  $block->getProductsJson();
+//var_dump($test);exit();
+$gridJsObjectName = $blockGrid->getJsObjectName();
+?>
+<?php  echo $block->getGridHtml(); ?>
+<input type="hidden" name="productassign" id="in_products" data-form-part="event_data_form" value=""/>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Mageants_EventManager/products/assign-products": { 
+                "selectedProducts": <?php /* @escapeNotVerified */ echo $block->getProductsJson(); ?>,
+                "gridJsObjectName": <?php /* @escapeNotVerified */ echo '"' . $gridJsObjectName . '"' ?: '{}'; ?>
+            }
+        }
+    }
+</script>
+<!-- @todo remove when "UI components" will support such initialization -->
+<script>
+    require('mage/apply/main').apply();
+</script>

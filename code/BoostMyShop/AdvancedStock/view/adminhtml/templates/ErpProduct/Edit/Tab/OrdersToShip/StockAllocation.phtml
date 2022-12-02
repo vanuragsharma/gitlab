@@ -1,0 +1,22 @@
+<center>
+    <p>
+        <?php echo __('Allocate stock from order'); ?>
+        &nbsp;
+        <select name="stock_allocation_from">
+            <option value=""><?php echo __('-- Select order --'); ?></option>
+            <?php foreach($this->getAllocationFromItems() as $item): ?>
+                    <option value="<?php echo $item->getitem_id(); ?>"><?php echo $item->getincrement_id(); ?> (<?php echo __('Reserved: %1', $item->getesfoi_qty_reserved()); ?>)</option>
+            <?php endforeach; ?>
+        </select>
+        &nbsp;
+        <?php echo __('to order'); ?>
+        &nbsp;
+        <select name="stock_allocation_to">
+            <option value=""><?php echo __('-- Select order --'); ?></option>
+            <?php foreach($this->getAllocationToItems() as $item): ?>
+                <option value="<?php echo $item->getitem_id(); ?>"><?php echo $item->getincrement_id(); ?> (<?php echo __('Reserved: %1, Missing %2', $item->getesfoi_qty_reserved(), $item->getQuantityToReserve()); ?>)</option>
+            <?php endforeach; ?>
+        </select>
+    </p>
+    <p>&nbsp;</p>
+</center>

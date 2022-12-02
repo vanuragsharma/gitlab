@@ -1,0 +1,111 @@
+
+<table cellspacing="0" class="admin__control-table">
+    <colgroup class="value"></colgroup>
+    <tbody>
+    <tr id ="barcodes">
+        <td class="value">
+            <div class="design_theme_ua_regexp" id="grid_mapping">
+
+                <div class="admin__control-table-wrapper">
+                    <table class="admin__control-table" id="advanced_additional_barcodes">
+                        <thead>
+                        <tr>
+                            <th><?php echo __('Barcode'); ?></th>
+                            <th class="col-actions" colspan="1">Action</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <td colspan="5" class="col-actions-add">
+                                <button id="addToEndBtn_barcodes" class="action-add" title="Add" type="button">
+                                    <span><?php echo __('Add'); ?></span>
+                                </button>
+                            </td>
+                        </tr>
+                        </tfoot>
+                        <tbody id="addRow_barcodes">
+                        <?php
+
+                        $_mappingData = $this->getProductOptions();
+                        if(!empty($_mappingData)){
+                            $mappinghtml ='';
+                            foreach($_mappingData as $id=>$data){
+                                $mappinghtml  .='<tr id="row_'.$id.'">';
+                                $mappinghtml  .='<td>'
+                                    .'<input type="text" size="40" name="barcodes['.$id.']" id="'.$id.'_barcodes" class="required-entry" title="" value="'.$data->getbac_code().'" >'
+                                    .'</td>';
+                                $mappinghtml  .='<td class="col-actions">'
+                                    .'<button onclick="arrayRow_mapping.del(row_'.$id.')" class="action-delete" type="button"><span>Delete</span></button>'
+                                    .'</td>';
+                                $mappinghtml  .='</tr>';
+                            }
+                            echo $mappinghtml;
+                        }
+                        ?>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <script>
+                    require([
+                        'mage/template',
+                        'prototype'
+                    ], function (mageTemplate) {
+                        // create row creator
+                        window.arrayRow_mapping = {
+
+                            add: function(rowData, insertAfterId) {
+                                // generate default template data
+                                var templateValues;
+                                // Prepare template values
+                                if (rowData) {
+                                    templateValues = rowData;
+                                } else {
+                                    var d = new Date();
+                                    templateValues = {
+                                        _id: '_' + d.getTime() + '_' + d.getMilliseconds()
+                                    };
+                                }
+                                // Insert new row after specified row or at the bottom
+                                if (insertAfterId) {
+                                    Element.insert($(insertAfterId), {after: this.template(templateValues)});
+                                } else {
+                                    Element.insert($('addRow_barcodes'), {bottom: this.template(templateValues)});
+                                }
+                                // Fill controls with data
+                                if (rowData) {
+                                    var rowInputElementNames = Object.keys(rowData.column_values);
+                                    for (var i = 0; i < rowInputElementNames.length; i++) {
+                                        if ($(rowInputElementNames[i])) {
+                                            $(rowInputElementNames[i]).setValue(rowData.column_values[rowInputElementNames[i]]);
+                                        }
+                                    }
+                                }
+                                // Add event for {addAfterBtn} button
+                            },
+                            // define row prototypeJS template
+                            template: mageTemplate(
+                                '<tr id="<%- _id %>">'
+                                + '<td>'
+                                + '<input type="text" size="40" name="barcodes[<%- _id %>]" id="<%- _id %>_barcodes" class="required-entry" title="" value="">'
+                                + '<\/td>'
+                                + '<td class="col-actions"><button onclick="arrayRow_mapping.del(\'<%- _id %>\')" class="action-delete" type="button"><span>Delete<\/span><\/button><\/td>'
+                                + '<\/tr>'
+                            ),
+                            del: function(rowId) {
+                                $(rowId).remove();
+                            }
+                        }
+                        // bind add action to "Add" button in last row
+                        Event.observe('addToEndBtn_barcodes', 'click', arrayRow_mapping.add.bind(arrayRow_mapping, false, false));
+                        // add existing rows
+                        // Toggle the grid availability, if element is disabled (depending on scope)
+                    });
+                </script>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+

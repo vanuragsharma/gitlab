@@ -1,0 +1,170 @@
+<div class="page-main-actions">
+
+    <div class="div_sbi_notifications">
+        <div id="div_instruction" style="font-size: 24px; font-weight: bold;">
+
+        </div>
+        <div id="div_message" style="font-size: 18px; font-weight: bold; padding-top: 5px;">
+            &nbsp;
+        </div>
+    </div>
+
+    <div data-mage-init='{"floatingHeader": {}}' class="page-actions"  data-ui-id="page-actions-toolbar-content-header" >
+        <?php $i=1; ?>
+        <?php foreach($this->getSteps() as $step): ?>
+            <button id="btn_step_<?php echo $step['id']; ?>" title="<?php echo $step['label']; ?>" type="button" onclick="<?php echo $step['action']; ?>" class="action-default scalable action-primary" >
+                <span><?php echo ($i++).". ".__($step['label']); ?></span>
+            </button>
+        <?php endforeach; ?>
+    </div>
+
+    <?php if ($this->showScopeForm()): ?>
+        <form method="POST" action="<?php echo $this->getSubmitUrl(); ?>" id="form_registry">
+            <input type="hidden" name="form_key" value="<?php echo $this->getFormKey(); ?>">
+
+            <table border="0" cellpadding="5">
+                <tr>
+                    <td><?php echo __('Operator'); ?> : </td>
+                    <td>&nbsp;&nbsp;&nbsp;
+                        <select name="operator_id" onchange="jQuery('#form_registry').submit();">
+                            <?php foreach($this->getOperators() as $operator): ?>
+                                <?php $selected = ($operator->getId() == $this->getCurrentOperatorId() ? ' selected ' : ''); ?>
+                                <option <?php echo $selected; ?> value="<?php echo $operator->getId(); ?>"><?php echo $operator->getusername(); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </td>
+                    <?php if($this->isBatchEnable()): ?>
+                        <td rowspan="2" width="150">
+                            <div class="page-actions-buttons">
+                                <button id="btn_batch_helper" title="Batch helper" type="button" onclick="showBatchHelper()" class="action-default scalable action-primary">
+                                    <span><?php echo __('Batch helper'); ?></span>
+                                </button>
+                            </div>
+                        </td>
+                    <?php endif; ?>
+                </tr>
+                <tr>
+                    <td><?php echo __('Warehouse'); ?> : </td>
+                    <td>&nbsp;&nbsp;&nbsp;
+                        <select name="warehouse_id" onchange="jQuery('#form_registry').submit();">
+                            <?php foreach($this->getWarehouses() as $id => $name): ?>
+                                <?php $selected = ($id == $this->getCurrentWarehouseId() ? ' selected ' : ''); ?>
+                                <option <?php echo $selected; ?> value="<?php echo $id; ?>"><?php echo $name; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </td>
+                </tr>
+                <?php echo $block->getAdditionalFilterHtml() ?>
+            </table>
+
+        </form>
+    <?php endif; ?>
+
+</div>
+
+<script>
+
+    function showBatchHelper(){
+        require(
+            [
+                'jquery',
+                'Magento_Ui/js/modal/modal'
+            ],
+            function($, modal) {
+
+                var url = '<?php echo $this->getBatchHelperUrl(); ?>';
+                jQuery.ajax({
+                    type: "GET",
+                    url: url,
+                    showLoader: true,
+                    success: function(data)
+                    {
+                        var options = {
+                            type: 'slide',
+                            responsive: true,
+                            innerScroll: true,
+                            title: '<?php echo __("Batch helper");?>',
+                            buttons: []
+                        };
+                        var popup = modal(options, $('#batch_helper_popup'));
+                        jQuery('#batch_helper_popup').html(data);
+                        jQuery("#batch_helper_popup").modal("openModal");
+                    }
+                });
+
+
+            });
+    }
+    function deleteBatch(url)
+    {
+        require([
+            'jquery',
+            'Magento_Ui/js/modal/confirm'
+        ], function($, confirmation) {
+
+            confirmation({
+                title: '<div style="text-align: center;text-transform: uppercase;font-weight: 800;background-color:red;color:white;padding: 15px;padding-top: 20px;padding-bottom: 20px;margin-top: -30px;margin-left: -30px;margin-right: -94px;">' +
+                $.mage.__('Delete batch') +
+                '</div>',
+                content: '<br/><br/><h2 style="text-align: center;"><i class="fas fa-exclamation-triangle" style="width:30px;height:30px;"></i> ' + $.mage.__('Are you sure to want to delete this batch ?') + '</h2>',
+                actions: {
+                    confirm: function(){window.location = url},
+                    cancel: function(){},
+                    always: function(){}
+                }
+            });
+
+        });
+    }
+    function closeBatch(url)
+    {
+        require([
+            'jquery',
+            'Magento_Ui/js/modal/confirm'
+        ], function($, confirmation) {
+
+            confirmation({
+                title: '<div style="text-align: center;text-transform: uppercase;font-weight: 800;background-color:red;color:white;padding: 15px;padding-top: 20px;padding-bottom: 20px;margin-top: -30px;margin-left: -30px;margin-right: -94px;">' +
+                $.mage.__('Close batch') +
+                '</div>',
+                content: '<br/><br/><h2 style="text-align: center;"><i class="fas fa-exclamation-triangle" style="width:30px;height:30px;"></i> ' + $.mage.__('Are you sure to want to close this batch ?') + '</h2>',
+                actions: {
+                    confirm: function(){window.location = url},
+                    cancel: function(){},
+                    always: function(){}
+                }
+            });
+
+        });
+    }
+    function removeBatchOrder(url){
+        require([
+            'jquery',
+            'Magento_Ui/js/modal/confirm'
+        ], function($, confirmation) {
+
+            confirmation({
+                title: '<div style="text-align: center;text-transform: uppercase;font-weight: 800;background-color:red;color:white;padding: 15px;padding-top: 20px;padding-bottom: 20px;margin-top: -30px;margin-left: -30px;margin-right: -94px;">' +
+                $.mage.__('Remove order from batch') +
+                '</div>',
+                content: '<br/><h2 style="text-align: center;"><i class="fas fa-exclamation-triangle" style="width:30px;height:30px;"></i> ' + $.mage.__('Are you sure to want to remove this order from the current batch ?') + '</h2>',
+                actions: {
+                    confirm: function(){window.location = url},
+                    cancel: function(){},
+                    always: function(){}
+                }
+            });
+
+        });
+    }
+    function confirmShipment(url)
+    {
+        var r = confirm("<?php echo __('Are you sure ?');?>");
+        if (r == true) {
+            window.location = url;
+        }
+    }
+
+</script>
+
+<div id="batch_helper_popup" style="display: none;"></div>

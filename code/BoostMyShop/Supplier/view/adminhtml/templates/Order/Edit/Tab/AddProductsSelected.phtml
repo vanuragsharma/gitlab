@@ -1,0 +1,31 @@
+<h1 style="text-align:center"><?php echo __('Selected Products'); ?></h1>
+
+<div class="admin__data-grid-wrap admin__data-grid-wrap-static">
+
+    <table class="data-grid" id="selected_products_table">
+        <thead>
+        <tr>
+            <th class="data-grid-th  no-link col-cache_type" style="width:20%;"><span><?php echo __('Qty'); ?></span></th>
+            <th class="data-grid-th  no-link col-cache_type" style="width:25%;"><span><?php echo __('Price'); ?></span></th>
+            <th class="data-grid-th  no-link col-cache_type" style="width:55%;"><span><?php echo __('Product'); ?></span></th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr id="product_row" style="display:none;">
+                <td class="a-center">
+                    <input id="selected_product_qty" type="text" class="input-text admin__control-text qty input-active" style="text-align:center; width:100%">
+
+                    <!--span used to add pack qty text-->
+                    <span></span>
+                    <input id="selected_product_pack_qty" type="text" style="display:none;">
+                </td>
+                <td class="a-center">
+                    <input id="selected_product_buying_price" type="text" class="input-text admin__control-text qty input-active" style="text-align:center; width:100%">
+                </td>
+                <td class="a-left">
+                    <span id ="selected_product_sku" style="font-weight:bold"></span> - <span id ="selected_product_name"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

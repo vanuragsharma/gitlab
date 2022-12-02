@@ -1,0 +1,155 @@
+<script>
+    require([
+        'mage/url',
+        'Magento_Ui/js/modal/modal',
+        'Magento_Ui/js/modal/confirm',
+        'mage/url'
+    ], function(url, modal, confirmation, urlBuilder) {
+        jQuery(document).on("click","#statistics-grid",function(e){
+            e.preventDefault();
+            if(!jQuery(".replenishment-popup-modal").length)
+                jQuery('#html-body').append('<div class="replenishment-popup-modal" id = "replenishment-popup-modal"></div>');
+
+            var link = jQuery(this);
+            var url = jQuery("#statistics-grid").data("statistics-popup-url");
+            var param = {form_key:window.FORM_KEY}
+
+            jQuery.ajax({
+                showLoader: true,
+                url: url,
+                data: param,
+                type: "POST",
+                success: function(data, status, xhr) {
+                    var options = {
+                        type: 'slide',
+                        responsive: true,
+                        innerScroll: true,
+                        title: data.title,
+                        buttons: []
+                    };
+                    jQuery("#replenishment-popup-modal").html(data.content+'<div id="grid_tab_content" class="dashboard-store-stats-content"></div>');
+                    jQuery("#replenishment-popup-modal").modal(options).modal("openModal");
+                },
+                error: function (xhr, status, errorThrown) {
+                    if(xhr.responseText != '' || xhr.responseText !== undefined)
+                    {
+                        alert('Error : '+jQuery.parseJSON(xhr.responseText).message);
+                    }
+                    else{
+                        alert('Error happens. Try again.');
+                    }
+                }
+            });
+        });
+    });
+
+    var quantitiesForPo = new Array();
+
+    function updateQty(productId)
+    {
+        quantitiesForPo[productId] = jQuery('#qty_' + productId).val();
+    }
+
+    function restoreQuantitiesForPo()
+    {
+        for (var key in quantitiesForPo) {
+            if (parseInt(key) > 0)
+            {
+                if (jQuery('#qty_' + key))
+                    jQuery('#qty_' + key).val(quantitiesForPo[key]);
+            }
+        }
+    }
+
+    function createPo(supplierId)
+    {
+        jQuery('#sup_id').val(supplierId);
+
+        var tmp = '';
+        for (var key in quantitiesForPo) {
+            if (parseInt(key) > 0)
+                tmp += key + '=' + quantitiesForPo[key] + ';';
+        }
+        jQuery('#products').val(tmp);
+        jQuery('#form_create_po').submit();
+    }
+
+    function fillMin()
+    {
+        jQuery( ".btn_min_qty" ).each(function( index ) {
+            jQuery( this).trigger('click');
+        });
+    }
+
+    function fillMax()
+    {
+        jQuery( ".btn_max_qty" ).each(function( index ) {
+            jQuery( this).trigger('click');
+        });
+    }
+    function changeWarehouse(id)
+    {
+        var url = '<?php echo $this->getChangeWarehouseUrl(); ?>';
+        url = url.replace('param_warehouse_id', id);
+        setLocation(url);
+    }
+</script>
+
+<form id="form_create_po" method="POST" action="<?php echo $this->getSaveUrl() ;?>">
+    <input type="hidden" name="form_key" value="<?php echo $this->getFormKey(); ?>">
+    <input type="hidden" name="sup_id" id="sup_id">
+    <input type="hidden" name="products" id="products">
+    <input type="hidden" value="<?php echo $block->getCurrentWarehouseId();?>" name="warehouse_id">
+
+</form>
+
+    <div data-mage-init='{"floatingHeader": {}}' class="page-actions" style="display: grid; float: none;"  data-ui-id="page-actions-toolbar-content-header" >
+
+        <div id="create_po_button" title="Create a new Purchase Order" class="actions-split" data-mage-init='{"dropdown":{}}'>
+            <button id="create_po_button" title="Create a new Purchase Order" class="action-default primary add">
+                <span><?php echo __('Create a new Purchase Order'); ?></span>
+            </button>
+            <button title="Create a new Purchase Order" class="action-toggle primary add" data-toggle="dropdown">
+                <span>Select</span>
+            </button>
+            <ul class="dropdown-menu">
+                <?php foreach($this->getSuppliers() as $supplier): ?>
+                    <li>
+                        <span title="<?php echo $supplier->getSupName(); ?>" class="item" data-ui-id="createpo-supplier-<?php echo $supplier->getId(); ?>" onclick="createPo(<?php echo $supplier->getId(); ?>);"><?php echo $supplier->getSupName(); ?></span>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+        <div class="page-actions" style="display:grid; margin-right: -14px" >
+
+            <select name="warehouse" id="warehouse" class="admin__control-select" onchange="changeWarehouse(this.value);">
+                <?php foreach($this->getWarehouses() as $warehouse): ?>
+                    <option <?php echo ($this->getCurrentWarehouseId() == $warehouse['value'] ? ' selected ' : ''); ?> value="<?php echo $warehouse['value']; ?>"><?php echo $warehouse['label']; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <button id="import" title="import" type="button" class="action-default scalable" onclick="fillMin();" >
+            <span><?php echo __('Fill with min qty'); ?></span>
+        </button>
+
+        <button id="import" title="import" type="button" class="action-default scalable" onclick="fillMax();" >
+            <span><?php echo __('Fill with max qty'); ?></span>
+        </button>
+
+        <button id="statistics-grid" title="statistics" type="button" data-statistics-popup-url="<?php echo $this->getStatisticsPopupUrl(); ?>" class="action-default scalable" >
+            <span><?php echo __('Statistics'); ?></span>
+        </button>
+
+
+
+    </div>
+
+<script>
+    require(['jquery'], function($){
+
+        $('.actions-split')
+            .on('click.splitDefault', '.action-default', function() {
+                $(this).siblings('.dropdown-menu').find('.item-default').trigger('click');
+            });
+    });
+</script>

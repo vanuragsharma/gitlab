@@ -1,0 +1,14 @@
+<?php
+	if($this->helper('Mageants\EventManager\Helper\Data')->getConfigValue('event/general/Enableheaderlink')){?>
+
+
+		<li>
+        <a href="<?php echo $block->getStore()->getBaseUrl().$this->helper('Mageants\EventManager\Helper\Data')->getConfigValue('event/seoconfigration/urlprefix').$this->helper('Mageants\EventManager\Helper\Data')->getConfigValue('event/seoconfigration/urlsufix'); ?>">
+        <?php echo $this->helper('Mageants\EventManager\Helper\Data')->getConfigValue('event/general/headerlink'); ?>
+        </a>
+    </li>
+<?php } ?>
+
+
+
+

@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+	<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+		<body>
+		
+	<referenceBlock name="catalog.compare.sidebar" remove="true"/> 
+	 		<referenceBlock name="header.links">
+				<block class="Mageants\EventManager\Block\Index\Link" template="Mageants_EventManager::link.phtml" ifconfig="event/general/EnableModule" />
+	        </referenceBlock>
+	        <referenceBlock name="footer_links">
+            <block class="Mageants\EventManager\Block\Index\Link"  template="Mageants_EventManager::footerlink.phtml"/>
+		 </referenceBlock>
+		      
+
+
+		</body>
+</page>
+

@@ -1,0 +1,94 @@
+<?php
+
+namespace Catchers\ExportShipment\Observer;
+
+use Magento\Framework\Event\ObserverInterface;
+
+class SalesOrderShipmentAfter implements ObserverInterface
+{
+	public function __construct(
+		\Magento\Catalog\Model\Product $product,
+		\Magento\Framework\Filesystem $fileSystem
+
+	) {        
+		$this->product = $product;    
+		$this->fileSystem = $fileSystem;    
+	}
+
+	public function execute(\Magento\Framework\Event\Observer $observer)
+	{
+		$data = [];
+		$shipmentItem = [];
+		$shipment = $observer->getEvent()->getShipment();
+		$mediaPath  = $this->fileSystem->getDirectoryRead(\Magento\Framework\App\Filesystem\DirectoryList::MEDIA)->getAbsolutePath();
+
+		$path = $mediaPath . 'shipment/';
+		if (!is_dir($path)) {
+			mkdir($path, 0777, true);
+		}
+
+		/** @var \Magento\Sales\Model\Order $order */
+		$order = $shipment->getOrder();
+		$shippingAddress = $order->getShippingAddress();		
+		$shippedItems = $shipment->getItemsCollection();
+
+		$data['Opdrachtreferentie'] = $shipment->getData('increment_id');
+		$data['Debiteur'] = 13515;
+		$data['DebiteurNaam'] = 'I-CATCHERS';
+		$data['Activiteiten']['Activiteit'] = [
+			'Activiteitreferentie' => $shipment->getData('increment_id'),
+			'Activiteitsoort' => 'R',
+			'Losnaam' => $shippingAddress->getData('company'),
+			'Losadres' => $shippingAddress->getData('street'),
+			'Lospostcode' => $shippingAddress->getData('postcode'),
+			'Loswoonplaats' => $shippingAddress->getData('city'),
+			'Losland' => $shippingAddress->getData('country_id'),
+			'Losreferentie' => $order->getData('increment_id'),
+			'Commissie' => ($order->getPayment()->getData('po_number')) ? $order->getPayment()->getData('po_number') . '/' . $order->getData('increment_id') : $order->getData('increment_id'),
+			'Losemail' => $shippingAddress->getData('email'),
+			'Verzendinstructie' => ($shipment->getData('customer_note')) ? $shipment->getCreatedAt() . '/' . $shipment->getData('customer_note') : $shipment->getCreatedAt()
+		]; 
+
+		foreach ($shippedItems as $item) {
+			$product = $this->product->load($item->getData('product_id'));
+			$shipmentItem[] = [
+				'Aantal' => $item->getData('qty'),
+				'Modelnaam' => $item->getData('sku') . '/' . trim($item->getData('name')),
+				'Colli' => trim($product->getData('number_of_boxes')),
+				'AantalZe' => '',
+				'Kleur' => trim($product->getData('wood_color')),
+				'Gewicht' => trim(str_replace("Kgs","",$product->getData('gr_wt'))),
+				'Stof' => trim($product->getData('wood_name')),
+				'Volume' => trim($product->getData('cbm'))
+			];        
+		}
+		$data['Partijen'] = $shipmentItem;  
+		$xmlData['Opdracht'] = $data;  
+		//echo "<pre>";
+		//print_r($data); exit;
+		$domxml = new \DOMDocument('1.0');
+		$domxml->preserveWhiteSpace = false;
+		$domxml->formatOutput = true;
+
+		$xml_data = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><Opdrachten></Opdrachten>');
+		$this->array_to_xml($xmlData,$xml_data);
+
+		$fileName = $data['Opdrachtreferentie'];
+		$domxml->loadXML($xml_data->asXML());
+		$domxml->save($mediaPath . 'shipment/shipment_' . $fileName . '.xml');
+	}
+
+	public function array_to_xml( $data, &$xml_data ) {
+		foreach( $data as $key => $value ) {
+			if( is_array($value) ) {
+				if( is_numeric($key) ){
+					$key = 'Partij';
+				}
+				$subnode = $xml_data->addChild($key);
+				$this->array_to_xml($value, $subnode);
+			} else {
+				$xml_data->addChild("$key",htmlspecialchars("$value"));
+			}
+		}
+	}
+}

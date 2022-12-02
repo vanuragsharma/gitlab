@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <container name="root">
+            <block class="BoostMyShop\Supplier\Block\Replenishment\Popup\Statistics" name="supplier.replenishment.popup" template="BoostMyShop_Supplier::Replenishment/Popup.phtml" />
+    </container>
+</layout>

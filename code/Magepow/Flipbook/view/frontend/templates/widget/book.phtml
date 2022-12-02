@@ -1,0 +1,45 @@
+<?php
+$helper = $this->helper('Magepow\Flipbook\Helper\Data');
+$isEnabled      = $helper->getConfigModule('general/enabled');
+$id = $this->getRequest()->getParam('id');
+$book = $this->getBook($id);
+if(!$isEnabled) return;
+?>
+<div class="book-details">
+	<?php if($block->getData('title')): ?>
+	<div class="book-title"><?php echo $block->getData('title'); ?></div>
+<?php endif; ?>
+</div>
+<div class="flipbook-viewport">
+	<div class="container">
+		<div class="flipbook" id="book">
+			
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	require([
+		'jquery',
+		'Magepow_Flipbook/js/plugin/html2canvas.min', 
+		'three', 
+		'pdfjs-dist/build/pdf',
+		'pdfjs-dist/build/pdf.worker',
+		'flipbook'
+		 ], function($, html2canvas, three, pdfjs, pdfworker){
+			'use strict'
+	      	$('#book').FlipBook({
+	      		pdf: '<?php echo $this->getPdf($book); ?>',
+	      		template: {
+					html:['<?php echo $this->getViewFileUrl('Magepow_Flipbook::template/default-book-view.html'); ?>'],
+					links: [{
+						rel: 'stylesheet',
+						href: ['<?php echo $this->getViewFileUrl('Magepow_Flipbook::css/font-awesome.min.css'); ?>']
+					}],
+					styles: ['<?php echo $this->getViewFileUrl('Magepow_Flipbook::css/short-black-book-view.css'); ?>'],
+					script: ['<?php echo $this->getViewFileUrl('Magepow_Flipbook::js/plugin/default-book-view.js'); ?>']
+				}
+	      	});
+	});
+</script>
+
+ 

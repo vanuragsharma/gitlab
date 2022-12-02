@@ -1,0 +1,71 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul 
+ * @package   Webkul_ShowPriceAfterLogin
+ * @author    Webkul Software Private Limited
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<?php
+$url = $block->getUrl('customer/account/login');
+?>
+<script>
+    var label = '<?= $escaper->escapeHtml($block->getLabel()); ?>';
+    var url ='<?= $escaper->escapeUrl($url); ?>';
+        require([
+            "jquery",
+        ], function($){
+            // get all tags which which defines vacation status
+                var closeTags = $('.wkremovepriceandcartforwishlist');
+                $.each(closeTags,function(index,value){
+                    
+                    var style='style="white-space:normal;"';
+                    if(label == "Logged in customer group not allowed to View Price") {
+                        style ='style="background: white;color: black;border: none;padding: 0 0;font-weight:400;white-space:normal;"';
+                        url="#";
+                    }
+                    
+                    var closeButton = '<br><div class="actions"><a href="'+url+'" class="action primary tocart" title="'+label+'"' +style+'">'+label+'</a></div>';
+                    if($(this).parent().parent().find('.product-item-inner')){
+                        $(this).parent().parent().find('.product-item-inner').html(closeButton);
+                    }
+                    if($(this).parent().parent().find('.product-item-actions')){
+                        $(this).parent().parent().find('.product-item-actions').html(closeButton);
+                    }
+                });
+        });
+</script>
+<script>
+    require([
+        "jquery",
+    ], function($){
+                var link ='<?=$escaper->escapeUrl($url); ?>';
+                var closeTags = $('.wkshowcallforpriceforwishlist'); 
+                $.each(closeTags,function(index,value){
+                    var text = $(this).attr('data-label');
+                    var href = $(this).attr('data-link');
+                    var closeButton = '<br><div class="actions"><a href="'+href+'" class="action primary tocart" title="'+text+'">'+text+'</a></div>';
+                    var style = "";
+                    if(href == "log-in") {
+                    href = link;
+                    style ='style="white-space:normal;"';
+                    }
+                    if (href=="customer-not-allowed"){
+                    // href = link;
+                    href = "#";
+                    style ='style="background: white;color: black;border: none;padding: 0 0;font-weight:400;white-space:normal;"';
+                    }
+                    closeButton =  '<br><div class="actions"><a href="'+href+'" class="action primary tocart" title="'+text+'"' +style+'">'+text+'</a></div>'
+                    if($(this).parent().parent().find('.product-item-inner')){ 
+                        $(this).parent().parent().find('.product-item-inner').html(closeButton);
+                    }
+                    // remove add to cart button from the widget list
+                    if($(this).parent().parent().find('.product-item-actions')){
+                        $(this).parent().parent().find('.product-item-actions').html(closeButton);
+                    }
+                }); 
+    });
+</script>

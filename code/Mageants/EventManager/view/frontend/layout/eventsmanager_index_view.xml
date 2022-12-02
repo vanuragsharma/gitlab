@@ -1,0 +1,23 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+	<head>
+		<css src="Mageants_EventManager::css/owl.carousel.min.css"/>
+		<css src="Mageants_EventManager::css/custom.css"/>
+		<css src="Mageants_EventManager::css/jquery.fancybox.css"/>
+		<script src="Mageants_EventManager::js/owl.carousel.js"/>
+		
+		
+		
+	</head>
+	
+	<body>
+    	
+        <referenceContainer name="content">
+            
+            <block class="Mageants\EventManager\Block\Index\View" name="eventsmanager_index_view" template="Mageants_EventManager::view.phtml"/>
+            
+        </referenceContainer>
+    
+
+
+    </body>
+</page>

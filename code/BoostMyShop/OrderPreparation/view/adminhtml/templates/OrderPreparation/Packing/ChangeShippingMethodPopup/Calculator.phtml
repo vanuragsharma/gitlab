@@ -1,0 +1,82 @@
+<style>
+
+    .div-carrier-template
+    {
+        width: 200px;
+        float: left;
+        padding: 2px;
+        margin: 5px;
+        display: inline-block;
+    }
+
+</style>
+
+<form id="frm_get_rates">
+
+    <table class="tbl-order" id ="parcelbox">
+        <tr>
+            <th>
+                <?php echo __('Total weight'); ?> :
+                <input type="text" size="5" value="<?php echo $this->getInProgress()->getip_total_weight() ? $this->getInProgress()->getip_total_weight() : $this->getInProgress()->getEstimatedWeight(); ?>" style="color: black;" id="total_weight" name="total_weight">
+            </th>
+            <th>
+                <?php echo __('Parcel count'); ?> :
+                <input type="text" size="3" style="color: black;" id="parcel_count" name="parcel_count" value="<?php echo $this->getInProgress()->getip_parcel_count(); ?>">
+            </th>
+            <th>
+                <?php echo __('Length'); ?> :
+                <input type="text" size="3" style="color: black;" id="parcel_length" name="parcel_length" value="<?php echo $this->getDimension('length'); ?>">
+            </th>
+            <th>
+                <?php echo __('Width'); ?> :
+                <input type="text" size="3" style="color: black;" id="parcel_width" name="parcel_width" value="<?php echo $this->getDimension('width'); ?>">
+            </th>
+            <th>
+                <?php echo __('Height'); ?> :
+                <input type="text" size="3" style="color: black;" id="parcel_height" name="parcel_height" value="<?php echo $this->getDimension('height'); ?>">
+            </th>
+        </tr>
+    </table>
+
+    <input type="hidden" name="ip_id" value="<?php echo $this->getInProgress()->getId(); ?>">
+    <input type="hidden" name="form_key" value="<?php echo $this->getFormKey(); ?>">
+    <?php foreach($block->getTemplates() as $template): ?>
+        <?php if ($template->getRenderer() && $template->getRenderer()->canGetRates()): ?>
+            <div class="div-carrier-template">
+                <input type="checkbox" name="templates[<?php echo $template->getId(); ?>]" value="1"> <?php echo $template->getct_name(); ?>
+            </div>
+        <?php endif ; ?>
+    <?php endforeach; ?>
+
+    <button title="Orders" type="button" onclick="getRates();" class="action-default scalable action-primary" style="height: 50px; font-size: 24px;">
+        <span><?php echo __('Get rates !'); ?></span>
+    </button>
+
+</form>
+
+<div id="rate_results">
+
+</div>
+
+<script>
+
+    function getRates()
+    {
+        var url = '<?php echo  $block->getUrl('orderpreparation/packing/getRates'); ?>';
+
+        var form = jQuery('#frm_get_rates');
+
+        jQuery.ajax({
+            type: "POST",
+            url: url,
+            showLoader: true,
+            data: form.serialize(), // serializes the form's elements.
+            success: function(data)
+            {
+                jQuery('#rate_results').html(data);
+            }
+        });
+
+    }
+
+</script>

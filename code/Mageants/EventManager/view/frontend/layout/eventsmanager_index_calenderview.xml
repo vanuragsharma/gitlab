@@ -1,0 +1,20 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+	<head>
+		
+        <css src="Mageants_EventManager::css/fullcalendar.min.css"/>
+        <css src="Mageants_EventManager::css/fullcalendar.css"/>
+        
+	</head>
+	
+	<body>
+    	
+        <referenceContainer name="content">
+            
+            <block class="Mageants\EventManager\Block\Index\View" name="eventsmanager_index_view" template="Mageants_EventManager::calenderview.phtml"/>
+            
+        </referenceContainer>
+    
+
+
+    </body>
+</page>

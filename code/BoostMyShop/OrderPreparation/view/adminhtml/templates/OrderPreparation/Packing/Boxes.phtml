@@ -1,0 +1,46 @@
+<?php $param = $this->getCurrentOrderParameters()?>
+<table class="tbl-order" id ="parcelbox">
+    <tr>
+        <?php if($block->isMutliboxAllow()){ ?>
+            <th><span id="parcel_name"> #Box: 1 <span/>
+            </th>
+        <?php } ?>
+        <th>
+            <?php echo __('Total weight'); ?> :
+            <input type="text" size="5" value="<?php echo $param['total_weight']; ?>" style="color: black;" id="total_weight" name="total_weight">
+        </th>
+        <?php if(!$block->isMutliboxAllow()){ ?>
+            <th>
+                <?php echo __('Parcel count'); ?> :
+                <input type="text" size="3" style="color: black;" id="parcel_count" name="parcel_count" value="<?php echo $param['parcel_count']; ?>">
+            </th>
+        <?php }else { ?>
+            <input type="hidden"  value="1"  id="parcel_count" name="parcel_count">
+        <?php } ?>
+        <th>
+            <?php echo __('Length'); ?> :
+            <input type="text" size="3" style="color: black;" id="parcel_length" name="parcel_length" value="<?php echo $param['parcel_length']; ?>">
+        </th>
+        <th>
+            <?php echo __('Width'); ?> :
+            <input type="text" size="3" style="color: black;" id="parcel_width" name="parcel_width" value="<?php echo $param['parcel_width']; ?>">
+        </th>
+        <th>
+            <?php echo __('Height'); ?> :
+            <input type="text" size="3" style="color: black;" id="parcel_height" name="parcel_height" value="<?php echo $param['parcel_height']; ?>">
+        </th>
+        <?php if($block->isMutliboxAllow()){ ?>
+            <td align="center">
+                <input type="button" value="+" onclick="packingObj.addParcelBoxes()">
+            </td>
+        <?php } ?>
+    </tr>
+</table>
+<?php if($block->isMutliboxAllow()):?>
+    <script>
+        var boxes = <?php echo json_encode($block->getBoxes()); ?>;
+        if(boxes) {
+            packingObj.showBoxes(boxes);
+        }
+    </script>
+<?php endif;?>

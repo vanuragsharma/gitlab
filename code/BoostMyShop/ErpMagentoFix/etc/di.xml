@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+
+    <!-- Override to prevent missing tabs -->
+    <preference
+            for="BoostMyShop\Erp\Block\Products\Edit\Tabs"
+            type="BoostMyShop\ErpMagentoFix\Block\Erp\Products\Edit\Tabs" />
+
+    <!-- Override to prevent crash on shipment view due to Order Preparation packages -->
+    <preference
+            for="Magento\Shipping\Block\Adminhtml\Order\Packaging"
+            type="BoostMyShop\ErpMagentoFix\Block\Magento\Shipping\Order\Packaging" />
+
+</config>

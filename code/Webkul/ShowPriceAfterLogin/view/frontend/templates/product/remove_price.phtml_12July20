@@ -1,0 +1,171 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul 
+ * @package   Webkul_ShowPriceAfterLogin
+ * @author    Webkul Software Private Limited
+ * @copyright Copyright (c) 2010-2017 Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<?php
+  $url = $block->getUrl('customer/account/login');
+  $callForPriceAttribute = $block->getAllShowPriceAfterLoginModuleAttribute();
+  $label = $callForPriceAttribute['call_for_price_label'];
+  if ($label == "") {
+      $label = "No label";
+  }  
+  $link = $callForPriceAttribute['call_for_price_link'];
+  $link = $block->checkUrl($link);
+  if ($link == "") {
+      $link = $block->getUrl('contact');
+  }   
+  $callForPriceConfigLabel = $block->callForPriceConfigLabel();
+  if ($callForPriceConfigLabel == "") {
+      $callForPriceConfigLabel = "No label";
+  }
+  $callForPriceConfigLink = $block->callForPriceConfigLink();
+  $callForPriceConfigLink = $block->checkUrl($callForPriceConfigLink);
+  if ($callForPriceConfigLink == "") {
+      $callForPriceConfigLink = $block->getUrl('contact');
+  } 
+  $isCallForPriceConfigSetting = $block->isCallForPriceConfigSetting(); 
+
+  if ($callForPriceAttribute['show_price'] && $block->configPriority() == "product_configuration") {
+    if ($block->isCustomerLoggedIn()) {
+        if (!$block->isAllowedCustomerGroupsForParticularProduct($callForPriceAttribute['show_price_customer_group'])) {
+        if ($callForPriceAttribute['call_for_price']) { ?>    
+          <script>
+          var label = '<?php echo $label; ?>';
+          var url   ='<?php echo $link; ?>';
+          require([
+          "jquery",
+          ], function($){
+            var closeButton = '<a href="'+url+'" class="action primary tocart" title="Add to Cart">'+label+'</a>';
+            $("#product-options-wrapper").remove();
+            $("#product-addtocart-button").remove();
+            $('.box-tocart .actions').html(closeButton);  
+          });
+          </script><?php 
+        } else { ?>
+            <script>
+            var label = "Logged in customer group<br>not allowed to View Price";
+            var url   ='<?php echo "#"; ?>';
+            require([
+            "jquery",
+            ], function($){
+              style ='style="background: white;color: black;border: none;padding: 0 0;font-weight:400"';
+              var closeButton = '<a href="'+url+'" class="action primary tocart" title="Add to Cart"'+style+'">'+label+'</a>';
+              $("#product-options-wrapper").remove();            
+              $("#product-addtocart-button").remove();
+              $('.box-tocart .actions').html(closeButton);  
+            });
+            </script>
+        <?php }
+    }
+    } else {
+        if ($callForPriceAttribute['call_for_price']) { ?>    
+          <script>
+          var label = '<?php echo $label; ?>';
+          var url   ='<?php echo $link; ?>';
+          require([
+          "jquery",
+          ], function($){
+            var closeButton = '<a href="'+url+'" class="action primary tocart" title="Add to Cart">'+label+'</a>';
+            $("#product-options-wrapper").remove();
+            $("#product-addtocart-button").remove();
+            $('.box-tocart .actions').html(closeButton);  
+          });
+          </script>
+          <?php } else { ?>
+            <script>
+            var label = '<?php echo $block->getLabel(); ?>';
+            var url ='<?php echo $url; ?>';
+            require([
+            "jquery",
+            ], function($){
+              var closeButton = '<a href="'+url+'" class="action primary tocart" title="Add to Cart">'+label+'</a>';
+              $("#product-options-wrapper").remove();
+              $("#product-addtocart-button").remove();
+              $('.box-tocart .actions').html(closeButton);  
+            });
+            </script>
+        <?php }
+    }
+  } else {
+    if ($block->isStoreAvilable()) {
+      if(!$block->isCustomerLoggedIn() || !in_array($block->getCustomerGroupId(), explode(',',$block->getGroupLists()))) {
+          if ($block->isCustomerLoggedIn() && !in_array($block->getCustomerGroupId(), explode(',',$block->getGroupLists()))) {
+              if ($isCallForPriceConfigSetting == 1) { ?>
+                    <script>
+                      var label = '<?php echo $callForPriceConfigLabel; ?>';
+                      var url ='<?php echo $callForPriceConfigLink; ?>';
+                      require([
+                      "jquery",
+                      ], function($){
+                        var closeButton = '<a href="'+url+'" class="action primary tocart" title="Add to Cart">'+label+'</a>';
+                        $("#product-options-wrapper").remove();
+                        $("#product-addtocart-button").remove();
+                        $('.box-tocart .actions').html(closeButton);  
+                      });
+                    </script>
+              <?php }     
+              else {
+                $block->setRedirectReferer();
+                // $url = $block->getUrl('customer/account/login'); 
+                $url = "#"; 
+            ?>
+              <script>
+                var label = '<?php echo $block->getLabel(); ?>';
+                var url ='<?php echo $url; ?>';
+                require([
+                "jquery",
+                ], function($){
+                  style ='style="background: white;color: black;border: none;padding: 0 0;font-weight:400"';
+                  var closeButton = '<a href="'+url+'" class="action primary tocart" title="Add to Cart"'+style+'">'+label+'</a>';
+                  $("#product-options-wrapper").remove();
+                  $("#product-addtocart-button").remove();
+                  $('.box-tocart .actions').html(closeButton);  
+                });
+              </script>
+              <?php
+          }
+    } else {
+            if ($isCallForPriceConfigSetting == 1) { ?>
+                    <script>
+                      var label = '<?php echo $callForPriceConfigLabel; ?>';
+                      var url ='<?php echo $callForPriceConfigLink; ?>';
+                      require([
+                      "jquery",
+                      ], function($){
+                        var closeButton = '<a href="'+url+'" class="action primary tocart" title="Add to Cart">'+label+'</a>';
+                        $("#product-options-wrapper").remove();
+                        $("#product-addtocart-button").remove();
+                        $('.box-tocart .actions').html(closeButton);  
+                      });
+                    </script>
+              <?php }     
+            else {
+              $block->setRedirectReferer();
+              $url = $block->getUrl('customer/account/login'); 
+            ?>
+              <script>
+                var label = '<?php echo $block->getLabel(); ?>';
+                var url ='<?php echo $url; ?>';
+                require([
+                "jquery",
+                ], function($){
+                  var closeButton = '<a href="'+url+'" class="action primary tocart" title="Add to Cart">'+label+'</a>';
+                  $("#product-options-wrapper").remove();
+                  $("#product-addtocart-button").remove();
+                  $('.box-tocart .actions').html(closeButton);  
+                });
+              </script>
+              <?php
+          }
+    } 
+  }
+}
+}
+?>

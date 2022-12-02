@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<update id="magepow" module="Magepow_Flipbook" resource="Magepow_Flipbook::magepow" sortOrder="10" title="Icatchers"/>
+		<add  id="Magepow_Flipbook::flipbook" module="Magepow_Flipbook" parent="magepow" resource="Magepow_Flipbook::flipbook" sortOrder="10" title="Flipbook"/>
+			<add id="Magepow_Flipbook::flipbook_flip" title="Flipbook" module="Magepow_Flipbook" sortOrder="10" parent="Magepow_Flipbook::flipbook" action="flipbook/flip" resource="Magepow_Flipbook::flipbook_flip"/>
+	</menu>
+</config>

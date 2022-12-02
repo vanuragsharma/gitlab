@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route method="GET" url="/V1/emailquote">
+        <service class="Magecomp\Emailquotepro\Api\PostManagementInterface" method="sendMail"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route method="POST" url="/V1/emailquote">
+        <service class="Magecomp\Emailquotepro\Api\PostManagementInterface" method="sendMail"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route method="GET" url="/V1/emailquote/specif/:quoteid">
+        <service class="Magecomp\Emailquotepro\Api\PostManagementInterface" method="getSpecificQuote"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route method="GET" url="/V1/emailquote/all">
+        <service class="Magecomp\Emailquotepro\Api\PostManagementInterface" method="getAllQuote"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route method="DELETE" url="/V1/emailquote/delete/:quoteid">
+        <service class="Magecomp\Emailquotepro\Api\PostManagementInterface" method="deleteQuote"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route method="GET" url="/V1/emailquote/update">
+        <service class="Magecomp\Emailquotepro\Api\PostManagementInterface" method="getUpdateQuote"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+</routes>

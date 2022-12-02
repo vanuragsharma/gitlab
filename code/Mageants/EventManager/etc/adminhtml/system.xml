@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!-- /**
+ * @category Mageants EventManager
+ * @package Mageants_EventManager
+ * @copyright Copyright (c) 2019 Mageants
+ * @author Mageants Team <support@mageants.com>
+ */ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="mageants" translate="label" sortOrder="10">
+            <label>Mageants</label>
+        </tab>
+        <section id="event" translate="label" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Events Manager</label>
+            <tab>mageants</tab>
+            <resource>Mageants_EventManager::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Basic Configurations</label>
+                <field id="EnableModule" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled Module</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="headerlink" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Header link title</label>
+                </field>
+                <field id="Enableheaderlink" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable header link</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="footerlink" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Footer link title</label>
+                    <comment>Label/Title for footer link</comment>
+                </field>
+                <field id="Enablefooterlink" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Footer link</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <!-- <field id="lattitude" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Standard Latitude</label>
+                </field>
+                <field id="longtitude" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Standard Longitude</label>
+                </field> -->
+                <field id="api" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API Key</label>
+                    <comment>Google Maps API Key (v3)</comment>
+                </field>
+                <!-- <field id="map" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Map Zoom</label>
+                    <comment>Google Maps Zoom Level</comment>
+                </field> -->
+                
+             </group>
+             <group id="seoconfigration" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>SEO Configurations</label>
+                <field id="pagetitle" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Page Title</label>
+                </field>
+                <!-- <field id="description" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Description</label>
+                </field>
+                <field id="keywords" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>KeyWords</label>
+                </field> -->
+                <field id="urlprefix" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Url Prefix</label>
+                    <comment>Events page access. URL (e.g. http://www.example.com/event)</comment>
+                </field>
+                <field id="urlsufix" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Url Sufix</label>
+                    <comment>(e.g .html )</comment>
+                </field>
+            </group>
+            <group id="configrationevent" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>show error msg</label>
+                <field id="errormsg" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Error message for empty collection</label>
+                    <comment>Error message to be shown if no event has been not defined for a particular date.</comment>
+                </field>
+            </group>
+           
+        </section>
+    </system>
+</config>

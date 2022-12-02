@@ -1,0 +1,145 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul 
+ * @package   Webkul_ShowPriceAfterLogin
+ * @author    Webkul Software Private Limited
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<?php
+    $yesShowPrice = " ";
+    $noShowPrice = " ";
+    $yesCallForPrice = " ";
+    $noCallForPrice = " ";
+    $display = "none";
+    $callForPriceOptionsDisplay = "none";
+    $callForPriceLabelValue = " ";
+    $callForPriceLinkValue = " ";
+    $productId = $block->getProductId();
+    $groupLists = $block->getGroupsLists();
+    $showPriceAttributes = $block->getAllShowPriceAfterLoginModuleAttribute();
+    $showPrice = $showPriceAttributes['show_price'];
+    $callForPrice = $showPriceAttributes['call_for_price'];
+    $callForPriceLabelValue = $showPriceAttributes['call_for_price_label'];
+    $showPriceCustomerGroup = explode(',', $showPriceAttributes['show_price_customer_group']);
+    $callForPriceLinkValue = $showPriceAttributes['call_for_price_link'];
+if ($showPrice == 1) {
+    $display = "block";
+    $yesShowPrice = "selected";
+    $allowedGroupsDisplay = "block";
+} elseif ($showPrice == 0) {
+    $noShowPrice = "selected";
+    $allowedGroupsDisplay = "none";
+}
+if ($callForPrice == 1) {
+    $yesCallForPrice = "selected";
+} else {
+    $noCallForPrice = "selected";
+}
+if ($yesCallForPrice == "selected") {
+    $callForPriceOptionsDisplay = "block";
+}
+?>
+    <div class="admin__field">
+        <label class="admin__field-label" ><span><?=/* @noEscape */ __("Enabled");?></span></label>
+        <div class="admin__field-control">
+            <select id="show_price_selector" name="product[show_price]" data-form-part="product_form" class="
+            admin__control-select" >
+                <option value="0" <?= /* @noEscape */ $noShowPrice; ?>><?=/* @noEscape */ __("No");?></option>
+                <option value="1" <?= /* @noEscape */ $yesShowPrice; ?>><?=/* @noEscape */__("Yes");?></option>
+            </select>
+        </div>
+    </div>    
+    <div class="admin__field" id="wk_showPrice_allowed_groups" style="display:<?= /* @noEscape */ $allowedGroupsDisplay; ?>;">
+        <label class="admin__field-label" ><span><?=/* @noEscape */__("Allowed Customer Groups");?></span></label>
+        <div class="admin__field-control" >
+        <select multiple class="admin__control-multiselect" size="3" name="produ[show_price_customer_group]" data-form-part="product_form">
+        <?php foreach ($groupLists as $key => $value) {?>
+            <?php $selected="";
+            if (in_array($value['value'], $showPriceCustomerGroup)) {
+                $selected = "selected";
+            } ?>
+            <option data-title="<?= /* @noEscape */ $value['label'];?>" value="<?= /* @noEscape */ $value['value'];?>" <?= /* @noEscape */ $selected ;?>><?= /* @noEscape */ $value['label'];?></option>
+        <?php } ?>
+        </select>
+        </div>
+    </div>
+    <div id="call_for_price" style="display:<?= /* @noEscape */ $display; ?>;" class="admin__field">
+        <label class="admin__field-label"><span><?=/* @noEscape */__("Add to Cart Label");?></label>
+        <div class="admin__field-control" >
+            <select class="admin__control-select call_for_price_selector" name="product[call_for_price]" data-form-part="product_form">
+                <option data-title="No" value="0" <?= /* @noEscape */ $noCallForPrice ?>><?=/* @noEscape */__("No");?></option>
+                <option data-title="Yes" value="1" <?= /* @noEscape */ $yesCallForPrice ?>><?=/* @noEscape */__("Yes");?></option>
+            </select>
+        </div>
+    </div>
+    <div  style="display:<?= /* @noEscape */ $callForPriceOptionsDisplay; ?>;" class="admin__field call_for_price_options">
+        <label class="admin__field-label" ><span><?=/* @noEscape */__("Title");?></span></label>
+        <div class="admin__field-control" >
+            <input id="call_for_price_label" type="text" name="product[call_for_price_label]" data-form-part="product_form" class="admin__control-text" value="<?= /* @noEscape */ $callForPriceLabelValue ;?>" placeholder="label for add to cart button"/>
+        </div>
+    </div>
+    <div  style="display:<?= /* @noEscape */ $callForPriceOptionsDisplay; ?>;" class="admin__field call_for_price_options">
+        <label class="admin__field-label" ><span><?=/* @noEscape */__("Redirect URL");?></span></label>
+        <div class="admin__field-control" >
+            <input id="call_for_price_link" type="text" class="admin__control-text" name="product[call_for_price_link]" data-form-part="product_form" value="<?= /* @noEscape */ $callForPriceLinkValue ;?>" placeholder="relative url only"/>
+        </div>
+    </div>
+    </div>
+
+<script type="text/javascript">
+    require(
+        [
+            'jquery',
+            'mage/template',
+            'Magento_Ui/js/modal/modal',
+            'mage/loader'
+        ],function($, template,modal){
+            $('.admin__scope-old').children(0).unwrap();
+            $('#show_price_selector').on('change',function(){
+               if ($(this).val() == 1) {
+                    $('#call_for_price').css('display','block');
+                    $('#wk_showPrice_allowed_groups').css('display','block');
+                    if ($('select[name="product[call_for_price]"]').val() == 1) {
+                        $('.call_for_price_options').css('display','block');
+                    } else {
+                        $('.call_for_price_options').css('display','none');
+                    }
+               }               
+               if ($(this).val() == 0 ) {
+                    $('#call_for_price').css('display','none');
+                    $('.call_for_price_options').css('display','none');
+                    $('#wk_showPrice_allowed_groups').css('display','none');
+               }
+            });
+
+            $('select[name="product[call_for_price]"]').on('change',function(){
+                if ($(this).val() == 1) {
+                    $('.call_for_price_options').css('display','block');
+                }               
+                if ($(this).val() == 0 ) {
+                    $('.call_for_price_options').css('display','none');
+                }
+            });
+            $('select[name="produ[show_price_customer_group]"]').on('click',function(){
+                jQuery.ajax({
+                    url      :   "<?=/* @noEscape */$block->getUrl('showprice/addattributevalue/addcustomattributevalue');?>",
+                    type     :   "GET",
+                    dataType :   "json",
+                    data     :   {
+                        id       : "<?= /* @noEscape */ $productId;?>",  
+                        values   : $('select[name="produ[show_price_customer_group]"]').val()
+                    },
+                    beforeSend:function() {
+                    },
+                    complete:function() {
+                    },                  
+                    success :   function(){
+                    }
+                }); 
+            });
+        });
+</script>

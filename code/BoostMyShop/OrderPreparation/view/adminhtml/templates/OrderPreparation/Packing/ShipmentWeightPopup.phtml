@@ -1,0 +1,7 @@
+<form method="POST" id="update-shipment-weight" action="<?php echo $this->getUpdateShipmentWeightUrl()?>">
+    <input type="hidden" name="form_key" value="<?php echo $this->getFormKey(); ?>">
+    <div class="div-shipment">
+        <?php echo $this->getChildHtml('orderpreparation.packing.boxes') ?>
+        <button type="submit" class="action-default scalable primary"><?php echo __('Submit'); ?></button>
+    </div>
+</form>

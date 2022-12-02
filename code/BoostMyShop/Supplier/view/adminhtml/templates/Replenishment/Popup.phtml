@@ -1,0 +1,72 @@
+<div class="error"></div>
+<div class="admin__data-grid-wrap admin__data-grid-wrap-static">
+    <table class="data-grid">
+        <thead>
+        <tr>
+            <th class="data-grid-th"><?php echo __('Supplier name') ?></th>
+            <th class="data-grid-th"><?php echo __('Low Stock') ?></th>
+            <th class="data-grid-th"><?php echo __('Backorders') ?></th>
+            <th class="data-grid-th"><?php echo __('Total') ?></th>
+            <th class="data-grid-th"><?php echo __('Minimum of order') ?></th>
+            <th class="data-grid-th"><?php echo __('Carriage free') ?></th>
+            <th class="data-grid-th"><?php echo __('Create purchase order') ?></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php $_suppliers = $this->getReplenishmentCollection();
+        foreach ($_suppliers as $key => $_supplier): ?>
+            <?php $supplier = $this->getSupplierArray($_supplier); ?>
+            <?php if(count($supplier['low_stock'])>0 || count($supplier['back_order'])>0 || count($supplier['all'])>0 ):?>
+                <tr>
+                    <td><a href="<?php echo $this->getSupplierUrl($key); ?>"><?php echo $supplier['sup_name'];?></a></td>
+                    <td class="even"><div> <?php echo $supplier['sup_currency'].' '.$supplier['low_stock_price']?></div></td>
+                    <td><div><?php echo $supplier['sup_currency'].' '.$supplier['back_order_price']?></div></td>
+                    <td class="even"><div><?php echo $supplier['sup_currency'].' '.$supplier['total_price']?></div></td>
+                    <td><div>
+                            <?php if ($supplier['min_of_order'] < $supplier['total_price']):?>
+                                <img src="<?php echo $this->getViewFileUrl("BoostMyShop_Supplier::images/success.png")?>" style="width: 7%; margin-left: 45%;">
+                            <?php endif; ?>
+                        </div></td>
+                    <td class="even"><div>
+                            <?php if ($supplier['carriage_free_amount'] < $supplier['total_price']):?>
+                                <img src="<?php echo $this->getViewFileUrl("BoostMyShop_Supplier::images/success.png")?>" style="width: 9%; margin-left: 45%;">
+                            <?php endif; ?>
+                        </div></td>
+                    <td><?php echo $this->getPoOption($key, count($supplier['low_stock']), count($supplier['back_order']), count($supplier['all']))?></td>
+                </tr>
+            <?php endif;?>
+        <?php endforeach;?>
+        </tbody>
+    </table>
+</div>
+<script>
+    require([
+        'mage/url'
+    ], function(urlBuilder) {
+        jQuery(document).on("click", "#purchaseorder", function (e) {
+            var supplier = jQuery(this).val();
+            var data = '<?php echo json_encode($_suppliers);?>';
+            var url = urlBuilder.build("supplier/replenishment/purchaseorder/");
+            if(supplier!=='Choose one') {
+                jQuery.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {products: data, sup_data: supplier},
+                    dataType: 'json',
+                    success: function(result)
+                    {
+                        if(result['success'] == 1) {
+                            window.location.href = result['msg'];
+                        }else{
+                            jQuery('.error').append("<div class='message-error'>"+result['msg']+"</div>");
+                        }
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        jQuery('.error').append("<div class='message-error'>Error happens. Try again.</div>");
+                    }
+                });
+                jQuery('.error').delay(4000).html('');
+            }
+        });
+    });
+</script>

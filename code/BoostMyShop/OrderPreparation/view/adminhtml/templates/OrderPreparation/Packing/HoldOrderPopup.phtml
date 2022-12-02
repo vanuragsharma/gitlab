@@ -1,0 +1,10 @@
+<div id="hold-order-popup-modal">
+    <form class="hold-order" >
+        <div class="div-hold" style="vertical-align: middle;">
+            <span class="title" ><?php echo __('Notes: ');?></span><br>
+            <textarea name="hold_order_note" id ="hold_order_note" rows="4" cols="50" value=""></textarea>
+            <input type="button" name="hold" id="hold" data-hold-url="<?php echo $this->getHoldOrderUrl(); ?>" value="<?php echo __('Hold'); ?>" class="action-default scalable primary">
+        </div>
+    </form>
+</div>
+

@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul 
+ * @package   Webkul_ShowPriceAfterLogin
+ * @author    Webkul Software Private Limited
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="webkul" translate="label" sortOrder="10">
+            <label>Webkul</label>
+        </tab>
+        <section id="webkulShowPriceAfterLogin" translate="label" type="text" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Show Price After Login</label>
+            <tab>webkul</tab>
+            <resource>Webkul_ShowPriceAfterLogin::config</resource>
+
+            <group id="storeAbility" translate="label" type="text" sortOrder="510" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="enableOrDisableStoreField" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <source_model>Webkul\ShowPriceAfterLogin\Model\Config\Source\Options</source_model>
+                    <label>Enabled</label>
+                </field>
+                <field id="customerGroupList" translate="label" type="multiselect" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <source_model>Webkul\ShowPriceAfterLogin\Model\Config\Source\CustomerGroupOptions</source_model>
+                    <label>Allowed Customer Groups</label>
+                    <depends>
+                        <field id="enableOrDisableStoreField">1</field>
+                    </depends>
+                </field>
+                <field id="enableOrDisableCategory" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <label>Enabled Category(s) Setting for All User</label>
+                    <depends>
+                        <field id="enableOrDisableStoreField">1</field>
+                    </depends>
+                </field>
+                <field id="categoryList" translate="label comment" type="multiselect" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <source_model>Webkul\ShowPriceAfterLogin\Model\Config\Source\CategoryListOptions</source_model>
+                    <label>Allowed Category(s) for All User</label>
+                    <comment>product price will be shown to all allowed categorie's products</comment>
+                    <depends>
+                        <field id="enableOrDisableStoreField">1</field>
+                        <field id="enableOrDisableCategory">1</field>
+                    </depends>
+                </field>
+            </group>             
+            <group id="callForPrice" translate="label" type="text" sortOrder="530" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Add to Cart Label</label>
+                <field id="callForPriceEnable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <source_model>Webkul\ShowPriceAfterLogin\Model\Config\Source\CallForPriceOptions</source_model>
+                    <label>Enabled</label>   
+                </field>             
+                <field id="callForPriceTitle" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                    <comment>label for add to cart button</comment>
+                    <depends>
+                        <field id="callForPriceEnable">1</field>
+                    </depends>
+                </field>                
+                <field id="callForPriceLink" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Redirect URL</label>
+                    <comment>relative url or full url starting with http or https</comment>
+                    <depends>
+                        <field id="callForPriceEnable">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="callForPriceConfigPriority" translate="label" type="text" sortOrder="540" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Configuration Priority</label>
+                <field id="callForPriceConfigPriorityEnable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <source_model>Webkul\ShowPriceAfterLogin\Model\Config\Source\ConfigurationPriorityOptions</source_model>
+                <label>Set Configuration Priority</label>   
+                </field>
+            </group>                                       
+        </section>
+    </system>
+</config>

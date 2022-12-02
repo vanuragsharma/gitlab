@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!-- /**
+ * @category Mageants EventManager
+ * @package Mageants_EventManager
+ * @copyright Copyright (c) 2019 Mageants
+ * @author Mageants Team <support@mageants.com>
+ */ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Mageants_EventManager::manager" title="EventManager" module="Mageants_EventManager" 
+        		sortOrder="25" resource="Mageants_EventManager::manager"/>
+        <add id="Mageants_EventManager::add_row" title="Manage Event" module="Mageants_EventManager" sortOrder="35" parent="Mageants_EventManager::manager" action="event/data/index" resource="Mageants_EventManager::add_row"/>
+    </menu>
+</config>

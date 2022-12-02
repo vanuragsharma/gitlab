@@ -1,0 +1,20 @@
+{
+    "name": "webkul/show-price-after-login",
+    "description": "Magento 2 Magento Show Price After Login",
+    "require": {
+        "magento/framework": "103.0.*"
+    },
+    "type": "magento2-module",
+    "version": "4.0.0",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Webkul\\ShowPriceAfterLogin\\": ""
+        }
+    }
+}

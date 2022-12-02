@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="catchers" translate="label" sortOrder="10">
+            <label>Catchers</label>
+        </tab>
+        <section id="custom" translate="label" type="text" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Email ID</label>
+            <tab>catchers</tab>
+            <resource>Catchers_Custom::config</resource>
+            <group id="configuration" translate="label" type="text" sortOrder="510" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Enable/Disable</label>
+                <field id="ebableOrDisableStoreField" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <source_model>Webkul\ShowPriceAfterLogin\Model\Config\Source\Options</source_model>
+                    <label>Set Status</label>
+                </field>
+                <field id="customerGroupList" translate="label" type="multiselect" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <source_model>Webkul\ShowPriceAfterLogin\Model\Config\Source\CustomerGroupOptions</source_model>
+                    <label>Select the groups</label>
+                    <depends>
+                        <field id="ebableOrDisableStoreField">1</field>
+                    </depends>
+                </field>
+            </group>                                       
+        </section>
+        <section id="customer_group" translate="label" type="text" sortOrder="1000" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Customer Group Email</label>
+            <tab>catchers</tab>
+            <resource>Catchers_Custom::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Group Emails</label>
+                <field id="group_emails" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <backend_model>Catchers\Custom\Block\Adminhtml\Config\Backend\ArraySerialized</backend_model>
+                    <frontend_model>Catchers\Custom\Block\Adminhtml\DynamicFieldData</frontend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,9 @@
+<?php if ($this->getPurchaseOrders()):?>
+    <?php foreach($this->getPurchaseOrders() as $order): ?>
+        <tr>
+            <td><?php echo $order->getpo_reference(); ?></td>
+            <td><?php echo $order->getpo_created_at(); ?></td>
+                <td><?php echo ($order->getpo_type() == "PO")? "Purchase order" : "Dropship"; ?></td>
+        </tr>
+    <?php endforeach; ?>
+<?php endif; ?>

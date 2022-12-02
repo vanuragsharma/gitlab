@@ -1,0 +1,40 @@
+<section class="admin__page-section manifest-general">
+    <div class="admin__page-section-title">
+        <span class="title"><?php echo __("General Details");?></span>
+    </div>
+    <div class="admin-table-wrapper">
+        <table class="manifest-tab products-edit-order-table">
+            <thead>
+            <tr class="headings">
+                <th class="col-date" width="20%"><span><?php echo __("Date");?></span></th>
+                <th class="col-warehouse" width="20%"><span><?php echo __("Warehouse");?></span></th>
+                <th class="col-carrier" width="20%"><span><?php echo __("Shipping method");?></span></th>
+                <th class="col-shipment-count" width="20%"><span><?php echo __("Shipment Count");?></span></th>
+                <th class="col-status" width="20%"><span><?php echo __("Status");?></span></th>
+            </tr>
+            </thead>
+            <tbody class="even">
+                <tr>
+                    <td class="col-date"> <?php echo $block->getCreatedAt();?></td>
+                    <td class="col-warehouse"><?php echo $block->getWarehouse();?></td>
+                    <td class="col-carrier"><?php echo $block->getShippingMethod();?></td>
+                    <td class="col-shipment-count"><?php echo $block->getShipmentCount();?></td>
+                    <td class="col-status"><?php echo $block->getStatus();?></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+<!--<section>-->
+<!--       <div>-->
+<!--            <div class="admin__field field required _required">-->
+<!--                <label class="label admin__field-label " for="carrier" ><span>--><?php //echo  __('Carrier'); ?><!--:</span></label>-->
+<!--                <div class="admin__field-control control">--><?php //echo $block->getShippingMethod()?><!--</div>-->
+<!--            </div>-->
+<!---->
+<!--            <div class="admin__field field required _required">-->
+<!--                <label class="label admin__field-label " for="warehouse" ><span>--><?php //echo  __('Warehouse'); ?><!--</span></label>-->
+<!--                <div class="admin__field-control control">--><?php //echo $block->getWarehouse()?><!--</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--</section>-->

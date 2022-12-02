@@ -1,0 +1,62 @@
+
+<section class="admin__page-section order-view-advanced-stock">
+    <div class="admin__page-section-title">
+        <span class="title"><?php echo __('Margins'); ?></span>
+    </div>
+
+
+
+    <div class="admin__page-section-content">
+
+        <table class="data-grid" id="cache_grid_table">
+            <thead>
+            <tr>
+                <th class="data-grid-th  no-link col-cache_type"><span><?php echo __('Sku'); ?></span></th>
+                <th class="data-grid-th  no-link col-cache_type"><span><?php echo __('Product'); ?></span></th>
+                <th class="data-grid-th  no-link col-cache_type"><span><?php echo __('Qty'); ?></span></th>
+                <th class="data-grid-th  no-link col-cache_type"><span><?php echo __('Total excl tax (%1)', $this->getOrderBaseCurrency()); ?></span></th>
+                <th class="data-grid-th  no-link col-cache_type"><span><?php echo __('Cost (%1)', $this->getOrderBaseCurrency()); ?></span></th>
+                <th class="data-grid-th  no-link col-cache_type"><span><?php echo __('Margin (%1)', $this->getOrderBaseCurrency()); ?></span></th>
+                <th class="data-grid-th  no-link col-cache_type"><span><?php echo __('Margin (%)'); ?></span></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <?php foreach($this->getItems() as $item): ?>
+
+                <tr>
+                    <td class="a-left"><?php echo $item->getSku(); ?></td>
+                    <td class="a-left">
+                        <?php echo $item->getName(); ?>
+                        <?php if ($item->getproduct_type() == 'container'): ?>
+                            <ul style="margin-left: 50px;">
+                            <?php foreach($this->getChildrenItems($item) as $children): ?>
+                                <?php echo '<li><i>'.$children->getSku().' - '.$children->getName().' : '.((int)$children->getqty_ordered()).'x '.$children->getbase_cost().'</i></li>'; ?>
+                            <?php endforeach; ?>
+                            </ul>
+                        <?php endif; ?>
+                    </td>
+                    <td class="a-center"><?php echo (int)$item->getqty_ordered(); ?></td>
+                    <td class="a-center"><?php echo $this->getMarginHelper()->getRowTotalExclTax($item); ?></td>
+                    <td class="a-center"><?php echo $this->getMarginHelper()->getOrderItemCost($item); ?></td>
+                    <td class="a-center"><?php echo $this->getMarginHelper()->getMarginValue($item); ?></td>
+                    <td class="a-center"><?php echo $this->getMarginHelper()->getMarginPercent($item); ?> %</td>
+
+
+            <?php endforeach; ?>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th class="data-grid-th  no-link col-cache_type a-right" colspan="3"><span><?php echo __('Total'); ?></span></th>
+
+                    <td class=" a-center"><span><?php echo $this->getMarginHelper()->getOrderTotalExclTax(); ?></span></td>
+                    <td class=" a-center"><span><?php echo $this->getMarginHelper()->getOrderTotalCosts(); ?></span></td>
+                    <td class=" a-center"><span><?php echo $this->getMarginHelper()->getOrderMarginValue(); ?></span></td>
+                    <td class=" a-center"><span><?php echo $this->getMarginHelper()->getOrderMarginPercent(); ?> %</span></td>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+</section>
+

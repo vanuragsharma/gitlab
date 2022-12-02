@@ -1,0 +1,11 @@
+#addProductsGrid
+{
+    float: left;
+    width: 74%;
+}
+
+#addProductsSelected
+{
+    float: right;
+    width: 24%;
+}

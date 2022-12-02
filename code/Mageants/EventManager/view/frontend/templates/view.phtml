@@ -1,0 +1,301 @@
+<?php $eventid = $this->getEventId();
+      //var_dump($eventid);exit();
+      $eventdata = $this->_Eventdata->create();
+      $eventdata->load($eventid);
+      
+?>
+
+<main id="maincontent" class="page-main">
+<a id="contentarea" tabindex="-1"></a>
+ <div class="page_title">
+    <a href="<?php echo $block->getBaseUrl().'eventsmanager/index/index/'?>"><strong>
+    <button class="backbutton">Back</button></strong></a>
+    <h1><?php echo $eventdata->getEventTitle() ?></h1>
+  </div>
+
+      <!-- Main Image begins -->
+    
+<div class="event_manager">
+  <div class="container"> 
+       <div class="row">
+        
+          <?php $img1=$eventdata['image'];
+              if(!$img1){?>
+              <div class="detail_thumbnail">
+              <?php
+              $placeholderUrl = $block->getPlaceHolderImage();
+              $plcimg = '<img src='.$placeholderUrl. ' >';
+              echo $plcimg;?>
+              </div>
+        <?php } else {?>
+            
+          <div class="detail_thumbnail"> 
+               <?php
+                $img1=explode(',', $eventdata['thumbnail_image']);
+                foreach ($img1 as $key => $value) {   
+                  $eventImage = $this->getMediaUrl().'eventmanager/tmp/image/'.$value;
+               }  $img = '<img src='.$eventImage. ' >';
+                  echo $img;?>
+         </div>
+         <?php } ?>
+             <!-- Main Image ends --> 
+                           
+            <div class="detail_left_col clearfix">
+              <div class="event_info">
+                <h2>Event Information</h2>
+                 <?php if(!empty($eventdata->getStartDate())) { ?>
+                <div class="event-info-field clearfix">
+                  <div class="event-info-label">
+                    <label>Time</label>
+                  </div>
+                  <?php
+                    $startdate = str_replace(':', '-', $eventdata->getStartDate());
+                    $enddate = str_replace(':', '-', $eventdata->getEndDate());
+
+                   ?>
+                  <div class="event-info-content"><?php echo $startdate." ". 'To' ." ".$enddate; ?>
+                  </div>
+                </div>
+              <?php } if(!empty($eventdata->getVenue())) { ?>
+                <div class="event-info-field clearfix">
+                  <div class="event-info-label">
+                    <label>Venue</label>
+                  </div>
+                  <div class="event-info-content"><?php echo $eventdata->getVenue() ?></div>
+                </div>
+              <?php } if(!empty($eventdata->getContactadmin())) { ?>
+                  <div class="event-info-field clearfix">
+                  <div class="event-info-label">
+                    <label>Contact Person</label>
+                  </div>
+                  <div class="event-info-content"><?php echo $eventdata->getContactadmin() ?></div>
+                  </div>
+                <?php } if(!empty($eventdata->getPhone())) { ?>
+                  <div class="event-info-field clearfix">
+                  <div class="event-info-label">
+                    <label>Phone</label>
+                  </div>
+                  <div class="event-info-content"><?php echo $eventdata->getPhone() ?></div>
+                </div>
+                 <?php } if(!empty($eventdata->getFax())) { ?>
+                  <div class="event-info-field clearfix">
+                  <div class="event-info-label">
+                    <label>Fax</label>
+                  </div>
+                  <div class="event-info-content"><?php echo $eventdata->getFax() ?></div>
+                </div>
+              <?php  } if(!empty($eventdata->getEmail())) { ?>
+                <div class="event-info-field clearfix">
+                  <div class="event-info-label">
+                    <label>Email</label>
+                  </div>
+                  <div class="event-info-content"><?php echo $eventdata->getEmail() ?></div>
+                </div>
+              <?php } if(!empty($eventdata->getAddress())) { ?>
+                 <div class="event-info-field clearfix">
+                  <div class="event-info-label">
+                    <label>Address</label>
+                  </div>
+                  <div class="event-info-content"><?php echo $eventdata->getAddress() ?></div>
+                </div>
+              <?php } ?>
+            </div>
+                <?php if(!empty($eventdata->getProductassign())){ ?>
+                 <div class = "buy_tickets">
+                  <form name="eventmanager-view-form" id="eventmanager-view-form" action="<?php echo $this->getUrl('eventsmanager/index/addcart');?>" method="post">
+                          <input type="hidden" name="productassign" value="<?php echo $eventdata->getProductassign(); ?>" />
+                          <div class="btn">
+                              <button type="submit" title="Buy Tickets" class="action tocart primary">
+                                <span>Buy Tickets</span>
+                              </button>
+                          </div>
+                        </form>
+                       
+                </div>
+               <?php } ?> 
+          </div>
+       </div>
+  </div>
+  <div class="container">
+    <div class="content"> 
+
+      <?php
+       $filterManager = $this->getFilteredContent($eventdata['description']); 
+        //var_dump($filterManager);exit();
+
+       ?>            
+      <p><?php echo $filterManager; ?></p>     
+    </div>
+  </div>        
+      <!-- Gallery section begins -->
+      <?php $img1=explode(',', $eventdata['image']);
+            $getimgcount = count($img1);
+            if($getimgcount>1){ ?>
+      <div class="media_gallery_slider">
+        <h2><?php echo $eventdata->getEventTitle();?>    Gallery</h2>
+        <div class= "container-carousel">
+           <div id="owl-demo" class="owl-carousel">
+              <?php $img1=explode(',', $eventdata['image']);
+                    $imagcount=0;
+                    foreach ($img1 as $key => $value) { 
+                        $eventImage = $this->getMediaUrl().'eventmanager/tmp/image/'.$value; ?>
+                    <div class="item">
+                        <div class="video">
+                          <div class="eventimage" >
+                            <a id="eventimage" href="<?php echo $eventImage; ?>">
+                            <img id="myImg" src="<?php echo $eventImage; ?>" id="<?php echo $imagcount; ?>">
+                          </a>
+                            
+                          </div>
+                        </div>
+                    </div> 
+                    <?php $imagcount++;?>
+                  <?php } ?>
+                </div>
+          </div>
+      </div>
+    <?php } ?>
+    
+    
+   
+    <div class="container">
+            <div class="events_venue">        
+                <ul>
+                  <?php if(!empty($eventdata->getYoutubeurl())) { ?>
+                  <li>
+                     <h2><?php echo $eventdata->getEventTitle(); ?> Video</h2>              
+                        <div class="video">           
+                    
+                              <?php
+                              $UID = $eventdata->getYoutubeurl();
+                              $stringParts = explode("?v=", $UID);
+                              //var_dump($stringParts);exit();
+                              echo "<div class='video-wrapper'><iframe src ='https://www.youtube.com/embed/".$stringParts[1]."' allowfullscreen='allowfullscreen' frameborder='0'></iframe></div>";
+                              ?> 
+                        </div>         
+                  </li>
+               <?php } if(!empty($eventdata->getLatitude() && !empty($eventdata->getLongitude()))){ ?>
+                <li>     
+                <h2>Venue</h2>
+                    <div class="mpgooglemaps_review_map">
+                        <div class="mpgooglemaps_map" id="mpgooglemaps_map_<?= $block->getNameInLayout() ?>"
+                                  style="height: 350px; width: 100%;">
+                        </div>
+                    </div>     
+                </li>
+                <?php } ?>                     
+                  </ul>   
+              </div>
+          </div>     
+      </div>
+   
+             
+ 
+
+    <script type="text/javascript">
+    (function  () {
+        require(["jquery","owlcarousel"],function($) {
+            $(document).ready(function() {
+                $("#owl-demo").owlCarousel({
+                    navigation : true, // Show next and prev buttons
+                    navtext: ["<i class='fa fa-long-arrow-left'></i>","<i class='fa fa-long-arrow-right'></i>"],
+                    autoplay: 1000, //Set AutoPlay to 3 seconds 
+                    items : 5,
+                    loop : true
+
+
+                  });
+              });
+            });
+      })();
+  </script>
+  <script type="text/javascript">
+    (function  () {
+      require(["jquery","fancybox"],function($) {
+        $(document).ready(function() {
+          $("#eventimage").fancybox({
+            openEffect  : 'elastic',
+            closeEffect : 'elastic',
+
+            helpers : {
+              title : {
+                type : 'inside'
+              }
+            }
+          });
+        });
+      });
+  })();
+</script>
+  
+<?php if(!empty($eventdata->getLatitude())){ ?>
+  <div class ="map">
+  <script>
+        require([
+            "https://maps.googleapis.com/maps/api/js?key=<?= $block->getApiKey() ?>"
+        ], function () {
+            var latitude = '<?= $eventdata->getLatitude() ?>',
+                longitude = '<?= $eventdata->getLongitude() ?>';
+            var isDraggable = true;
+            //var defaultzoom = '';
+ 
+            
+
+            function markerMap(latitude, longitude) {
+                var mapLatLng = new google.maps.LatLng(latitude, longitude);
+                var mapOptions = {
+                    draggable: true,
+                    zoom: 10,
+                    center: mapLatLng,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    //styles: mapStyle
+                };
+
+                var map = new google.maps.Map(document.getElementById("mpgooglemaps_map_<?= $block->getNameInLayout() ?>"), mapOptions);
+                var marker = new google.maps.Marker({
+                    draggable: true,
+                    position: mapLatLng,
+                   // icon: mapMarkerIcon,
+                    animation: google.maps.Animation.DROP
+                });
+                marker.setMap(map);
+            }
+
+            markerMap(latitude, longitude);
+        });
+    </script>
+    </div>
+   <?php } ?>
+    
+</main>
+
+<style type="text/css">
+  .video-wrapper {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 */
+  }
+
+  .video-wrapper iframe,
+  .video-wrapper video {
+    position: absolute;
+    width: 100%;
+    height: 100%;  
+  }
+  #myImg {
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.backbutton{
+  border-radius: 50%;
+
+}
+
+#myImg:hover {opacity: 0.7;}
+</style>    
+
+
+
+

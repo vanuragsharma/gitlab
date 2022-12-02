@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Email Supplier All Expected Orders" design_abstraction="custom">
+    <body>
+        <block class="BoostMyShop\Supplier\Block\Order\Email\Orders" name="orders" template="email/orders.phtml" cacheable="false" />
+    </body>
+</page>

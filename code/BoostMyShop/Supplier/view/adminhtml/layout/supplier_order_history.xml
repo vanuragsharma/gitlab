@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <container name="root" label="Root">
+            <container name="historyNew" label="Top" htmlTag="div" htmlId="historyNew">
+                <block class="BoostMyShop\Supplier\Block\Order\Edit\Tab\HistoryNew" name="supplier.order.new.history"/>
+            </container>
+            <container name="historyGrid" label="Bottom" htmlTag="div" htmlId="historyGrid">
+                <block class="BoostMyShop\Supplier\Block\Order\Edit\Tab\History" name="supplier.order.history.grid"/>
+            </container>
+        </container>
+    </body>
+</page>

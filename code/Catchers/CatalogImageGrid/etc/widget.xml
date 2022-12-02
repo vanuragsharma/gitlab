@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="catalog_category_list"
+            class="Catchers\CatalogImageGrid\Block\Category\Widget\CategoryList">
+        <label translate="true">Catalog Image Grid</label>
+        <description translate="true">Category Image Grid</description>
+        <parameters>
+            <parameter name="page_size" xsi:type="text" required="true" visible="true">
+                <label translate="true">Number of Category to display</label>
+                <value>5</value>
+            </parameter>
+            <parameter name="template" xsi:type="select" required="true" visible="true">
+                <label>Template</label>
+                <options>
+                    <option name="grid" value="category/widget/grid.phtml" selected="true">
+                        <label translate="true">Category Grid Template</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+        <containers>
+            <container name="content">
+                <template name="grid" value="grid" />
+                <template name="list" value="list" />
+            </container>
+        </containers>
+    </widget>
+</widgets>
